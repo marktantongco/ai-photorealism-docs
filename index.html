@@ -225,19 +225,10 @@
         /* Neo-Brutalist Table */
         .neo-table {
             width: 100%;
-            table-layout: fixed;
             border-collapse: collapse;
             margin: 16px 0 24px;
             font-size: 12px;
             border: 2px solid var(--border);
-        }
-
-        .neo-table th,
-        .neo-table td {
-            width: 50%;
-            min-width: 0;
-            max-width: 500px;
-            word-wrap: break-word;
         }
 
         .neo-table th {
@@ -296,7 +287,7 @@
         /* Grid Cards */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 16px;
             margin: 20px 0;
         }
@@ -306,8 +297,6 @@
             border: 2px solid var(--border);
             padding: 20px;
             transition: border-color 0.1s ease;
-            min-width: 0;
-            max-width: 100%;
         }
 
         .neo-card:hover {
@@ -348,11 +337,6 @@
         .matrix-cell {
             background: var(--surface);
             padding: 14px 16px;
-            min-width: 0;
-            max-width: 100%;
-            width: 100%;
-            overflow: hidden;
-            text-overflow: ellipsis;
         }
 
         .matrix-cell.header {
@@ -398,12 +382,183 @@
         }
 
         /* Mobile */
-        @media (max-width: 900px) {
+        @media (max-width: 1200px) {
+            .grid-layout { grid-template-columns: 240px 1fr; }
+            .sidebar { width: 240px; }
+            .main { margin-left: 240px; padding: 32px 40px; }
+        }
+
+        @media (max-width: 992px) {
+            .grid-layout { grid-template-columns: 200px 1fr; }
+            .sidebar { width: 200px; padding: 20px; }
+            .main { margin-left: 200px; padding: 28px 32px; }
+            .hero h1 { font-size: 40px; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 8px; }
+        }
+
+        @media (max-width: 768px) {
             .grid-layout { grid-template-columns: 1fr; }
-            .sidebar { display: none; }
-            .main { margin-left: 0; padding: 24px; }
-            .hero h1 { font-size: 32px; }
+            .sidebar { 
+                display: none; 
+            }
+            .main { 
+                margin-left: 0; 
+                padding: 24px 20px; 
+                max-width: 100%;
+            }
+            .hero { margin-bottom: 40px; padding-bottom: 32px; }
+            .hero h1 { font-size: 32px; line-height: 1.2; }
+            .hero p { font-size: 14px; }
+            .badges { gap: 6px; }
+            .badge { font-size: 9px; padding: 3px 8px; }
+            
+            section { margin-bottom: 36px; }
+            h2 { font-size: 18px; }
+            h3 { font-size: 14px; }
+            p { font-size: 13px; }
+            
+            .neo-table { 
+                font-size: 11px; 
+                display: block;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+            .neo-table th, .neo-table td { padding: 8px 10px; }
+            
             .matrix { grid-template-columns: repeat(2, 1fr); }
+            .matrix-cell { padding: 12px; }
+            .matrix-cell .value { font-size: 11px; }
+            
+            .card-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .neo-card { padding: 16px; }
+            .neo-card h4 { font-size: 13px; }
+            .neo-card p { font-size: 11px; }
+            
+            pre { font-size: 10px; padding: 12px; }
+            code { font-size: 11px; }
+            
+            footer { flex-direction: column; gap: 12px; text-align: center; }
+        }
+
+        @media (max-width: 576px) {
+            .main { padding: 20px 16px; }
+            .hero h1 { font-size: 26px; }
+            .hero p { font-size: 13px; }
+            
+            .badges { flex-wrap: wrap; }
+            .badge { font-size: 8px; }
+            
+            .matrix { grid-template-columns: 1fr; }
+            .card-grid { grid-template-columns: 1fr; }
+            
+            .neo-table th { font-size: 9px; padding: 6px 8px; }
+            .neo-table td { font-size: 10px; padding: 6px 8px; }
+            
+            .section-header { margin-bottom: 16px; padding-bottom: 8px; }
+            .section-num { font-size: 10px; }
+            h2 { font-size: 16px; }
+            
+            pre { padding: 10px; font-size: 9px; }
+        }
+
+        /* Landscape mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero { margin-bottom: 24px; padding-bottom: 20px; }
+            .hero h1 { font-size: 24px; }
+            .hero p { font-size: 12px; max-width: 100%; }
+            section { margin-bottom: 24px; }
+        }
+
+        /* High DPI displays */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .neo-table, .matrix, .neo-card { border-width: 1px; }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Mobile Header */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 56px;
+            background: var(--surface);
+            border-bottom: 2px solid var(--border);
+            padding: 0 16px;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+        }
+
+        .mobile-header .brand {
+            font-size: 16px;
+        }
+
+        .mobile-header .brand-icon {
+            width: 20px;
+            height: 20px;
+        }
+
+        .menu-toggle {
+            display: none;
+            flex-direction: column;
+            justify-content: center;
+            gap: 4px;
+            width: 32px;
+            height: 32px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            background: var(--text);
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .menu-toggle.active span:nth-child(1) {
+            transform: translateY(6px) rotate(45deg);
+        }
+
+        .menu-toggle.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle.active span:nth-child(3) {
+            transform: translateY(-6px) rotate(-45deg);
+        }
+
+        /* Mobile Sidebar Overlay */
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .sidebar-overlay.active {
+            opacity: 1;
+        }
+
+        @media (max-width: 768px) {
+            .mobile-header { display: flex; }
+            .main { padding-top: 72px; }
         }
 
         /* Utility */
@@ -413,6 +568,25 @@
     </style>
 </head>
 <body>
+    <!-- Mobile Header -->
+    <header class="mobile-header">
+        <div class="brand">
+            <div class="brand-icon">
+                <span></span><span></span>
+                <span></span><span></span>
+            </div>
+            CREATOR
+        </div>
+        <button class="menu-toggle" onclick="toggleSidebar()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+
+    <!-- Sidebar Overlay -->
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    
     <div class="grid-layout">
         <aside class="sidebar">
             <div class="logo-block">AI CREATOR SUITE</div>
@@ -770,5 +944,43 @@ export function AIImageCard({ imageUrl, title }) {
             </footer>
         </main>
     </div>
+    <script>
+        function toggleSidebar() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggle = document.querySelector('.menu-toggle');
+            
+            if (window.innerWidth <= 768) {
+                sidebar.style.display = sidebar.style.display === 'none' ? 'block' : 'none';
+                sidebar.style.position = 'fixed';
+                sidebar.style.top = '56px';
+                sidebar.style.left = '0';
+                sidebar.style.width = '280px';
+                sidebar.style.height = 'calc(100vh - 56px)';
+                sidebar.style.zIndex = '1001';
+                overlay.classList.toggle('active');
+                toggle.classList.toggle('active');
+            }
+        }
+
+        // Handle resize
+        window.addEventListener('resize', function() {
+            const sidebar = document.querySelector('.sidebar');
+            const overlay = document.querySelector('.sidebar-overlay');
+            const toggle = document.querySelector('.menu-toggle');
+            
+            if (window.innerWidth > 768) {
+                sidebar.style.display = '';
+                sidebar.style.position = '';
+                sidebar.style.top = '';
+                sidebar.style.left = '';
+                sidebar.style.width = '';
+                sidebar.style.height = '';
+                sidebar.style.zIndex = '';
+                overlay.classList.remove('active');
+                toggle.classList.remove('active');
+            }
+        });
+    </script>
 </body>
 </html>
