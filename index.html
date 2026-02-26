@@ -225,10 +225,19 @@
         /* Neo-Brutalist Table */
         .neo-table {
             width: 100%;
+            table-layout: fixed;
             border-collapse: collapse;
             margin: 16px 0 24px;
             font-size: 12px;
             border: 2px solid var(--border);
+        }
+
+        .neo-table th,
+        .neo-table td {
+            width: 50%;
+            min-width: 0;
+            max-width: 500px;
+            word-wrap: break-word;
         }
 
         .neo-table th {
@@ -287,7 +296,7 @@
         /* Grid Cards */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 16px;
             margin: 20px 0;
         }
@@ -297,6 +306,8 @@
             border: 2px solid var(--border);
             padding: 20px;
             transition: border-color 0.1s ease;
+            min-width: 0;
+            max-width: 100%;
         }
 
         .neo-card:hover {
@@ -337,6 +348,11 @@
         .matrix-cell {
             background: var(--surface);
             padding: 14px 16px;
+            min-width: 0;
+            max-width: 100%;
+            width: 100%;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .matrix-cell.header {
