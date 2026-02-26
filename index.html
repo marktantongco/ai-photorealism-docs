@@ -2,28 +2,26 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Photorealism Skills</title>
+    <meta name="width=device-width,viewport" content=" initial-scale=1.0">
+    <title>AI Creator Suite</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #050505;
-            --surface: #0a0a0a;
-            --surface-elevated: #111111;
-            --border: #1f1f1f;
-            --border-hover: #2a2a2a;
-            --text: #fafafa;
-            --text-secondary: #a1a1a1;
-            --text-tertiary: #525252;
-            --accent: #fafafa;
-            --accent-subtle: #262626;
-            --cyan: #22d3ee;
-            --cyan-dim: #0891b2;
-            --gradient: linear-gradient(135deg, #fafafa 0%, #a1a1aa 100%);
+            --bg: #0c0c0c;
+            --surface: #141414;
+            --surface-2: #1a1a1a;
+            --border: #2a2a2a;
+            --border-2: #3a3a3a;
+            --text: #f5f5f5;
+            --text-2: #a0a0a0;
+            --text-3: #666666;
+            --accent: #ff3d00;
+            --accent-2: #00e5ff;
+            --accent-3: #ffea00;
             --font-mono: 'JetBrains Mono', monospace;
-            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-sans: 'Space Grotesk', sans-serif;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -34,180 +32,278 @@
             font-family: var(--font-sans);
             background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
-            font-size: 15px;
+            font-size: 14px;
+            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
         }
 
-        ::selection { background: var(--cyan-dim); color: var(--text); }
+        ::selection { background: var(--accent); color: var(--bg); }
 
-        .layout {
+        /* Neo-Brutalist Grid Layout */
+        .grid-layout {
             display: grid;
-            grid-template-columns: 260px 1fr;
+            grid-template-columns: 280px 1fr;
             min-height: 100vh;
         }
 
-        /* Sidebar */
+        /* Fixed Sidebar */
         .sidebar {
             position: fixed;
             top: 0;
             left: 0;
-            width: 260px;
+            width: 280px;
             height: 100vh;
             background: var(--surface);
-            border-right: 1px solid var(--border);
-            padding: 32px 24px;
-            display: flex;
-            flex-direction: column;
+            border-right: 3px solid var(--border);
+            padding: 24px;
             overflow-y: auto;
         }
 
-        .logo {
+        .logo-block {
             font-family: var(--font-mono);
-            font-size: 12px;
-            font-weight: 500;
-            color: var(--text-tertiary);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
+            font-size: 11px;
+            color: var(--text-3);
             margin-bottom: 8px;
+            letter-spacing: 0.15em;
         }
 
         .brand {
-            font-size: 18px;
-            font-weight: 600;
+            font-size: 22px;
+            font-weight: 700;
             color: var(--text);
             margin-bottom: 4px;
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
         }
 
-        .brand::before {
-            content: '';
-            width: 8px;
-            height: 8px;
+        .brand-icon {
+            width: 24px;
+            height: 24px;
             background: var(--accent);
-            border-radius: 2px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2px;
+            padding: 4px;
+        }
+
+        .brand-icon span {
+            background: var(--bg);
         }
 
         .version {
             font-family: var(--font-mono);
-            font-size: 11px;
-            color: var(--text-tertiary);
+            font-size: 10px;
+            color: var(--accent-2);
             margin-bottom: 32px;
-            padding-left: 16px;
+            padding-left: 34px;
         }
 
-        .nav-section {
-            margin-bottom: 24px;
+        .nav-group {
+            margin-bottom: 28px;
         }
 
-        .nav-label {
-            font-size: 11px;
-            font-weight: 500;
-            color: var(--text-tertiary);
+        .nav-header {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-3);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.1em;
             margin-bottom: 12px;
             padding-left: 8px;
+            border-left: 2px solid var(--accent);
         }
 
-        .nav-item {
+        .nav-link {
             display: block;
             padding: 8px 12px;
-            color: var(--text-secondary);
+            color: var(--text-2);
             text-decoration: none;
             font-size: 13px;
-            border-radius: 6px;
-            transition: all 0.15s ease;
-            margin-bottom: 2px;
+            border: 1px solid transparent;
+            margin-bottom: 4px;
+            transition: all 0.1s ease;
         }
 
-        .nav-item:hover {
+        .nav-link:hover {
             color: var(--text);
-            background: var(--surface-elevated);
+            background: var(--surface-2);
+            border-color: var(--border);
         }
 
-        .nav-item.active {
-            color: var(--text);
-            background: var(--accent-subtle);
+        .nav-link.active {
+            color: var(--accent);
+            background: var(--surface-2);
+            border-color: var(--accent);
         }
 
         /* Main Content */
         .main {
-            margin-left: 260px;
-            padding: 48px 64px;
-            max-width: 900px;
+            margin-left: 280px;
+            padding: 40px 48px;
+            max-width: 1000px;
         }
 
-        /* Hero */
+        /* Hero Section */
         .hero {
-            margin-bottom: 64px;
-            padding-bottom: 48px;
-            border-bottom: 1px solid var(--border);
+            margin-bottom: 56px;
+            padding-bottom: 40px;
+            border-bottom: 3px solid var(--border);
         }
 
         .hero h1 {
-            font-size: 42px;
+            font-size: 48px;
             font-weight: 700;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.03em;
             margin-bottom: 16px;
             line-height: 1.1;
         }
 
+        .hero h1 span {
+            color: var(--accent);
+        }
+
         .hero p {
-            font-size: 18px;
-            color: var(--text-secondary);
-            max-width: 600px;
+            font-size: 16px;
+            color: var(--text-2);
+            max-width: 640px;
             line-height: 1.7;
         }
 
-        /* Sections */
+        .badges {
+            display: flex;
+            gap: 8px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            padding: 4px 10px;
+            border: 1px solid var(--border);
+            color: var(--text-2);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Section */
         section {
-            margin-bottom: 56px;
+            margin-bottom: 48px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-num {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--accent);
+            font-weight: 600;
         }
 
         h2 {
-            font-size: 13px;
+            font-size: 20px;
             font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-tertiary);
-            margin-bottom: 24px;
-            padding-bottom: 12px;
-            border-bottom: 1px solid var(--border);
         }
 
         h3 {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 600;
-            margin-bottom: 16px;
+            margin-bottom: 12px;
             color: var(--text);
         }
 
-        p { color: var(--text-secondary); margin-bottom: 16px; }
+        p { color: var(--text-2); margin-bottom: 16px; }
 
-        /* Cards */
+        /* Neo-Brutalist Table */
+        .neo-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 24px;
+            font-size: 12px;
+            border: 2px solid var(--border);
+        }
+
+        .neo-table th {
+            background: var(--surface);
+            padding: 12px 14px;
+            text-align: left;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-3);
+            border-bottom: 2px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+
+        .neo-table td {
+            padding: 10px 14px;
+            color: var(--text-2);
+            border-bottom: 1px solid var(--border);
+            border-right: 1px solid var(--border);
+        }
+
+        .neo-table tr:hover td {
+            background: var(--surface);
+        }
+
+        .neo-table code {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            background: var(--surface-2);
+            padding: 2px 6px;
+            color: var(--accent-2);
+        }
+
+        /* Code Block */
+        pre {
+            background: var(--surface);
+            border: 2px solid var(--border);
+            padding: 16px;
+            overflow-x: auto;
+            margin: 16px 0;
+            font-family: var(--font-mono);
+            font-size: 11px;
+            line-height: 1.6;
+            color: var(--text-2);
+        }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            background: var(--surface-2);
+            padding: 2px 6px;
+            color: var(--accent-2);
+        }
+
+        /* Grid Cards */
         .card-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
             gap: 16px;
-            margin-bottom: 24px;
+            margin: 20px 0;
         }
 
-        .card {
+        .neo-card {
             background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            border: 2px solid var(--border);
             padding: 20px;
-            transition: border-color 0.15s ease;
+            transition: border-color 0.1s ease;
         }
 
-        .card:hover {
-            border-color: var(--border-hover);
+        .neo-card:hover {
+            border-color: var(--accent);
         }
 
-        .card h4 {
+        .neo-card h4 {
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 8px;
@@ -216,211 +312,145 @@
             gap: 8px;
         }
 
-        .card h4::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: var(--cyan);
-            border-radius: 1px;
+        .neo-card h4::before {
+            content: '→';
+            color: var(--accent);
         }
 
-        .card p {
-            font-size: 13px;
-            color: var(--text-secondary);
+        .neo-card p {
+            font-size: 12px;
+            color: var(--text-2);
             margin: 0;
             line-height: 1.6;
         }
 
-        /* Tables */
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 16px 0 24px;
-            font-size: 13px;
-        }
-
-        th, td {
-            padding: 12px 16px;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        th {
-            font-weight: 500;
-            color: var(--text-tertiary);
-            font-size: 11px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        td { color: var(--text-secondary); }
-
-        tr:hover td { background: var(--surface); }
-
-        code {
-            font-family: var(--font-mono);
-            font-size: 12px;
-            background: var(--surface-elevated);
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: var(--cyan);
-        }
-
-        pre {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 16px;
-            overflow-x: auto;
-            margin: 16px 0;
-            font-family: var(--font-mono);
-            font-size: 12px;
-            line-height: 1.7;
-            color: var(--text-secondary);
-        }
-
-        /* Blockquote */
-        blockquote {
-            border-left: 2px solid var(--border);
-            padding-left: 20px;
-            margin: 24px 0;
-            color: var(--text-tertiary);
-            font-style: italic;
-        }
-
-        /* Lists */
-        ul, ol { margin: 16px 0; padding-left: 20px; }
-        li { color: var(--text-secondary); margin-bottom: 8px; font-size: 14px; }
-
-        /* Badges */
-        .badge {
-            display: inline-block;
-            font-family: var(--font-mono);
-            font-size: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 4px 8px;
-            background: var(--accent-subtle);
-            border-radius: 4px;
-            color: var(--text);
-        }
-
-        /* Quick Ref */
-        .quick-ref {
+        /* Quick Matrix */
+        .matrix {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2px;
             background: var(--border);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            overflow: hidden;
+            border: 2px solid var(--border);
+            margin: 20px 0;
         }
 
-        .quick-ref-item {
+        .matrix-cell {
             background: var(--surface);
-            padding: 16px;
+            padding: 14px 16px;
         }
 
-        .quick-ref-label {
+        .matrix-cell.header {
+            background: var(--surface-2);
+            font-family: var(--font-mono);
             font-size: 10px;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            color: var(--text-tertiary);
-            margin-bottom: 8px;
+            color: var(--text-3);
         }
 
-        .quick-ref-tech {
+        .matrix-cell .label {
+            font-size: 10px;
+            color: var(--text-3);
+            margin-bottom: 4px;
+        }
+
+        .matrix-cell .value {
             font-family: var(--font-mono);
-            font-size: 13px;
-            color: var(--text);
-        }
-
-        .quick-ref-buzz {
             font-size: 12px;
-            color: var(--text-tertiary);
-            margin-top: 4px;
+            color: var(--text);
         }
 
         /* Footer */
         footer {
-            margin-top: 80px;
-            padding-top: 32px;
-            border-top: 1px solid var(--border);
+            margin-top: 64px;
+            padding-top: 24px;
+            border-top: 3px solid var(--border);
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         footer p {
-            font-size: 12px;
-            color: var(--text-tertiary);
+            font-size: 11px;
+            color: var(--text-3);
             margin: 0;
         }
 
         footer a {
-            color: var(--text-secondary);
+            color: var(--accent-2);
             text-decoration: none;
         }
 
-        footer a:hover { color: var(--text); }
-
         /* Mobile */
-        @media (max-width: 768px) {
-            .layout { grid-template-columns: 1fr; }
+        @media (max-width: 900px) {
+            .grid-layout { grid-template-columns: 1fr; }
             .sidebar { display: none; }
             .main { margin-left: 0; padding: 24px; }
-            .hero h1 { font-size: 28px; }
-            .quick-ref { grid-template-columns: 1fr; }
-            .card-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 32px; }
+            .matrix { grid-template-columns: repeat(2, 1fr); }
         }
+
+        /* Utility */
+        .mono { font-family: var(--font-mono); }
+        .accent { color: var(--accent); }
+        .accent2 { color: var(--accent-2); }
     </style>
 </head>
 <body>
-    <div class="layout">
+    <div class="grid-layout">
         <aside class="sidebar">
-            <div class="logo">AI Skills</div>
-            <div class="brand">Photorealism</div>
-            <div class="version">v4.0 · Feb 2026</div>
+            <div class="logo-block">AI CREATOR SUITE</div>
+            <div class="brand">
+                <div class="brand-icon">
+                    <span></span><span></span>
+                    <span></span><span></span>
+                </div>
+                CREATOR SUITE
+            </div>
+            <div class="version">v5.0 · FEB 2026</div>
 
-            <nav class="nav-section">
-                <div class="nav-label">Foundation</div>
-                <a href="#problem" class="nav-item">The Problem</a>
-                <a href="#scaffold" class="nav-item">Prompt Scaffold</a>
+            <nav class="nav-group">
+                <div class="nav-header">Core Skills</div>
+                <a href="#photorealism" class="nav-link">→ AI Photorealism</a>
+                <a href="#react" class="nav-link">→ React Performance</a>
+                <a href="#ui" class="nav-link">→ UI Components</a>
+                <a href="#animation" class="nav-link">→ Animations</a>
+                <a href="#content" class="nav-link">→ Content Distribution</a>
             </nav>
 
-            <nav class="nav-section">
-                <div class="nav-label">Technical</div>
-                <a href="#optics" class="nav-item">Optical Mechanics</a>
-                <a href="#lighting" class="nav-item">Lighting</a>
-                <a href="#skin" class="nav-item">Skin Realism</a>
+            <nav class="nav-group">
+                <div class="nav-header">Integration</div>
+                <a href="#patterns" class="nav-link">→ Patterns</a>
+                <a href="#matrix" class="nav-link">→ Quick Reference</a>
             </nav>
 
-            <nav class="nav-section">
-                <div class="nav-label">Workflow</div>
-                <a href="#negation" class="nav-item">Strategic Negation</a>
-                <a href="#platform" class="nav-item">Platforms</a>
-                <a href="#post" class="nav-item">Post-Processing</a>
-            </nav>
-
-            <nav class="nav-section">
-                <div class="nav-label">Reference</div>
-                <a href="#templates" class="nav-item">Templates</a>
-                <a href="#quickref" class="nav-item">Quick Reference</a>
+            <nav class="nav-group">
+                <div class="nav-header">Resources</div>
+                <a href="https://github.com/marktantongco/aiskills-photog" class="nav-link" target="_blank">→ GitHub</a>
             </nav>
         </aside>
 
         <main class="main">
             <header class="hero">
-                <h1>AI Photorealism Skills</h1>
-                <p>A technical framework for achieving true photorealism in AI image generation through photographic physics, material science, and strategic prompt engineering.</p>
+                <h1>AI <span>CREATOR</span> SUITE</h1>
+                <p>Comprehensive skills framework for building production-ready AI applications. Integrate photorealistic image generation, React performance, shadcn/ui components, Framer Motion animations, and content distribution.</p>
+                <div class="badges">
+                    <span class="badge">PHOTOREALISM</span>
+                    <span class="badge">REACT</span>
+                    <span class="badge">SHADCN/UI</span>
+                    <span class="badge">FRAMER MOTION</span>
+                    <span class="badge">LINKEDIN/X</span>
+                </div>
             </header>
 
-            <section id="problem">
-                <h2>01 — The Core Problem</h2>
-                <p>The "AI look" — waxy skin, plastic textures, flattened lighting — is a <strong style="color:var(--text)">user error</strong>, not a model limitation.</p>
+            <section id="photorealism">
+                <div class="section-header">
+                    <span class="section-num">01</span>
+                    <h2>AI Photorealism</h2>
+                </div>
                 
                 <h3>The Buzzword Trap</h3>
-                <table>
+                <table class="neo-table">
                     <tr><th>Avoid</th><th>Use Instead</th></tr>
                     <tr><td><code>hyperrealistic</code></td><td>Specific lens specs</td></tr>
                     <tr><td><code>8K ultra-detailed</code></td><td>Sensor references</td></tr>
@@ -428,244 +458,298 @@
                     <tr><td><code>beautiful skin</code></td><td>Anatomical micro-details</td></tr>
                 </table>
 
-                <blockquote>Why Buzzwords Fail: "8K" and "hyperrealistic" tell the AI to average millions of mediocre stock photos, resulting in over-processed skin.</blockquote>
-            </section>
-
-            <section id="scaffold">
-                <h2>02 — Prompt Scaffold</h2>
-                <p>A professional prompt is an <strong style="color:var(--text)">architectural blueprint</strong>, not a keyword list.</p>
-
-                <h3>Universal Formula</h3>
-                <pre>[STYLE/MEDIUM] + [SUBJECT] + [ACTION/POSE] + [FRAMING] + [SETTING] + [LIGHTING] + [CAMERA SPECS] + [MATERIAL DETAILS] + [QUALITY/REFERENCE]</pre>
-
-                <h3>Token Weighting</h3>
-                <table>
-                    <tr><th>Syntax</th><th>Effect</th></tr>
-                    <tr><td><code>(keyword:1.1)</code></td><td>Subtle emphasis</td></tr>
-                    <tr><td><code>(keyword:1.3)</code></td><td>Strong emphasis</td></tr>
-                    <tr><td><code>(keyword:1.5)</code></td><td>Override default</td></tr>
-                </table>
-            </section>
-
-            <section id="optics">
-                <h2>03 — Optical Mechanics</h2>
-                
                 <h3>Focal Length</h3>
-                <table>
-                    <tr><th>Focal Length</th><th>Perception</th><th>Best For</th></tr>
-                    <tr><td>16–24mm</td><td>Depth expansion</td><td>Environmental portraits</td></tr>
-                    <tr><td>50mm</td><td>Natural perspective</td><td>Baseline realism</td></tr>
-                    <tr><td>85mm</td><td>Flattering compression</td><td>Professional headshots</td></tr>
-                    <tr><td>105mm+</td><td>Elite appearance</td><td>High-status portraits</td></tr>
+                <table class="neo-table">
+                    <tr><th>Focal</th><th>Perception</th><th>Best For</th></tr>
+                    <tr><td>16–24mm</td><td>Depth expansion</td><td>Environmental</td></tr>
+                    <tr><td>50mm</td><td>Natural</td><td>Baseline</td></tr>
+                    <tr><td>85mm</td><td>Flattering</td><td>Headshots</td></tr>
+                    <tr><td>105mm+</td><td>Elite</td><td>High-status</td></tr>
                 </table>
 
-                <blockquote><strong style="color:var(--text)">50mm Rule:</strong> Baseline for naturalism — approximates human vision.</blockquote>
-
-                <h3>Aperture</h3>
-                <table>
-                    <tr><th>Aperture</th><th>Effect</th></tr>
-                    <tr><td><code>f/1.4–f/2.8</code></td><td>Shallow DOF; creamy bokeh</td></tr>
-                    <tr><td><code>f/8–f/11</code></td><td>Deep focus</td></tr>
-                </table>
-
-                <h3>Anamorphic</h3>
+                <h3>Lighting Patterns</h3>
                 <div class="card-grid">
-                    <div class="card">
-                        <h4>Oval Bokeh</h4>
-                        <p>Vertically elongated out-of-focus highlights</p>
-                    </div>
-                    <div class="card">
-                        <h4>Horizontal Flares</h4>
-                        <p>Blue-streak halation from cylindrical diffraction</p>
-                    </div>
-                    <div class="card">
-                        <h4>Edge Softness</h4>
-                        <p>Organic vignetting and focus fall-off</p>
-                    </div>
-                </div>
-            </section>
-
-            <section id="lighting">
-                <h2>04 — Lighting Architecture</h2>
-                
-                <h3>Core Patterns</h3>
-                <div class="card-grid">
-                    <div class="card">
+                    <div class="neo-card">
                         <h4>Rembrandt</h4>
-                        <p>Key light 45° off-axis; triangle on shadow cheek. Dramatic, intellectual depth.</p>
+                        <p>Key light 45° off-axis; triangle on shadow cheek. Dramatic, intellectual.</p>
                     </div>
-                    <div class="card">
+                    <div class="neo-card">
                         <h4>Butterfly</h4>
                         <p>Centered above; butterfly shadow under nose. Beauty, glamour.</p>
                     </div>
-                    <div class="card">
+                    <div class="neo-card">
                         <h4>Loop</h4>
-                        <p>30–45° to side, slightly above. Flattering, approachable.</p>
+                        <p>30–45° to side. Flattering, approachable.</p>
                     </div>
-                    <div class="card">
+                    <div class="neo-card">
                         <h4>Rim/Edge</h4>
                         <p>Behind subject. 3D separation, halo effect.</p>
                     </div>
                 </div>
 
-                <h3>Natural Light</h3>
-                <table>
-                    <tr><th>Condition</th><th>Characteristics</th></tr>
-                    <tr><td>Golden Hour</td><td>Low-angle warm; long soft shadows</td></tr>
-                    <tr><td>Overcast</td><td>Soft, diffused, low-contrast</td></tr>
-                    <tr><td>Window Light</td><td>Directional; wrap-around</td></tr>
-                    <tr><td>Blue Hour</td><td>Cool, melancholic, cinematic</td></tr>
-                </table>
+                <h3>Skin Realism</h3>
+                <pre>subsurface scattering, translucent skin, visible pores, vellus hair, subtle blemishes</pre>
 
-                <h3>Advanced Terms</h3>
-                <ul>
-                    <li><code>subsurface scattering</code> — Light penetrates surface, scatters internally (critical for skin)</li>
-                    <li><code>global illumination</code> — Physically accurate light bounces</li>
-                    <li><code>ray tracing</code> — Accurate reflections, shadows</li>
-                </ul>
-            </section>
-
-            <section id="skin">
-                <h2>05 — Skin Realism</h2>
-                
-                <h3>The Subsurface Scattering Imperative</h3>
-                <p>In real skin: <strong style="color:var(--text)">6%</strong> direct reflectance, <strong style="color:var(--text)">94%</strong> subsurface scattering.</p>
-                <p>Prompt: <code>subsurface scattering, translucent skin</code></p>
-
-                <h3>Micro-Textures</h3>
-                <table>
-                    <tr><th>Element</th><th>Prompt</th></tr>
-                    <tr><td>Pores</td><td><code>visible skin pores, pore-level detail</code></td></tr>
-                    <tr><td>Hair</td><td><code>vellus hair, fine peach fuzz</code></td></tr>
-                    <tr><td>Imperfections</td><td><code>subtle blemishes, natural asymmetry</code></td></tr>
-                    <tr><td>Texture</td><td><code>skin grain, natural skin variation</code></td></tr>
-                </table>
-
-                <h3>Film Stock Emulation</h3>
-                <table>
-                    <tr><th>Film</th><th>Character</th></tr>
-                    <tr><td>Kodak Portra 160/400</td><td>Natural skin tones</td></tr>
-                    <tr><td>Kodak Vision3 50D</td><td>Ultra-fine grain, cinematic</td></tr>
-                    <tr><td>Fuji Pro 400H</td><td>Soft pastel highlights</td></tr>
+                <h3>Platform Optimization</h3>
+                <table class="neo-table">
+                    <tr><th>Platform</th><th>Key Flags</th></tr>
+                    <tr><td>Midjourney</td><td><code>--style raw</code> <code>--stylize 500-750</code> <code>--cref</code></td></tr>
+                    <tr><td>SDXL</td><td>Base + Refiner, CFG 7.0-8.5</td></tr>
                 </table>
             </section>
 
-            <section id="negation">
-                <h2>06 — Strategic Negation</h2>
-                
-                <h3>Troubleshooting</h3>
-                <table>
-                    <tr><th>Problem</th><th>Solution</th></tr>
-                    <tr><td>Waxy/Plastic Skin</td><td>Lens specs + <code>(visible pores:1.4)</code></td></tr>
-                    <tr><td>Distorted Faces</td><td><code>85mm</code>+ lens</td></tr>
-                    <tr><td>Flat Lighting</td><td>Specify Rembrandt/Loop</td></tr>
-                    <tr><td>Extra Fingers</td><td><code>(extra fingers:1.4)</code></td></tr>
-                    <tr><td>Dead Eyes</td><td>Prompt <code>catchlights, iris detail</code></td></tr>
+            <section id="react">
+                <div class="section-header">
+                    <span class="section-num">02</span>
+                    <h2>React Performance</h2>
+                </div>
+
+                <h3>Rule Priority</h3>
+                <table class="neo-table">
+                    <tr><th>Priority</th><th>Category</th><th>Prefix</th></tr>
+                    <tr><td>1</td><td>Eliminating Waterfalls</td><td><code>async-</code></td></tr>
+                    <tr><td>2</td><td>Bundle Size</td><td><code>bundle-</code></td></tr>
+                    <tr><td>3</td><td>Server Performance</td><td><code>server-</code></td></tr>
+                    <tr><td>4</td><td>Client Fetching</td><td><code>client-</code></td></tr>
+                    <tr><td>5</td><td>Re-render</td><td><code>rerender-</code></td></tr>
                 </table>
 
-                <h3>Negative Block</h3>
-                <pre>(worst quality:1.4), (blurry:1.2), jpeg artifacts, 
-(cartoon, anime:1.3), 3d render, cgi, 
-(plastic skin, waxy skin, poreless:1.4), 
-(bad anatomy, extra fingers:1.4), (dead eyes:1.3)</pre>
-            </section>
-
-            <section id="platform">
-                <h2>07 — Platform Optimization</h2>
-                
-                <h3>Midjourney v6/v7</h3>
-                <table>
-                    <tr><th>Parameter</th><th>Setting</th></tr>
-                    <tr><td><code>--style raw</code></td><td>Reduces painterly bias</td></tr>
-                    <tr><td><code>--stylize</code></td><td>500–750 for photorealism</td></tr>
-                    <tr><td><code>--cref</code></td><td>Character reference</td></tr>
-                    <tr><td><code>--cw</code></td><td>0=face only; 100=full</td></tr>
-                </table>
-
-                <h3>Stable Diffusion XL</h3>
-                <table>
-                    <tr><th>Technique</th><th>Purpose</th></tr>
-                    <tr><td>Base + Refiner</td><td>Two-stage 1024×1024 detail</td></tr>
-                    <tr><td>CFG Scale 7.0–8.5</td><td>Balance adherence + quality</td></tr>
-                    <tr><td>DPM++ 2M Karras</td><td>Best skin/hair</td></tr>
-                </table>
-            </section>
-
-            <section id="post">
-                <h2>08 — Post-Processing</h2>
-                
-                <h3>Consistency Workflow</h3>
-                <ol>
-                    <li><strong style="color:var(--text)">Seed Locking:</strong> <code>--seed 12345</code> holds initial noise</li>
-                    <li><strong style="color:var(--text)">Character Reference:</strong> <code>--cref face.jpg</code></li>
-                    <li><strong style="color:var(--text)">Style Reference:</strong> <code>--sref style.jpg</code></li>
-                    <li><strong style="color:var(--text)">Inpainting:</strong> Fix specific errors surgically</li>
-                </ol>
-
-                <h3>Resolution Strategy</h3>
-                <ul>
-                    <li>Generate at <strong style="color:var(--text)">4K+ native</strong> for detail</li>
-                    <li><strong style="color:var(--text)">HiRes Fix:</strong> Upscale + add high-frequency detail</li>
-                    <li><strong style="color:var(--text)">External AI:</strong> Topaz Photo AI, Lightroom</li>
-                </ul>
-            </section>
-
-            <section id="templates">
-                <h2>09 — Master Templates</h2>
-                
-                <h3>Corporate Executive</h3>
-                <pre>[Full shot] of a [middle-aged CEO] in a [bespoke charcoal wool suit], 
-standing by [floor-to-ceiling high-rise window], [blurred NYC cityscape 
-backdrop], [soft natural window light], [85mm lens, f/2.8], 
-[natural skin pores, asymmetrical features], [Kodak Portra 400], 
---style raw --ar 4:5</pre>
-
-                <h3>Cinematic Anamorphic</h3>
-                <pre>[Eye-level] portrait of a [young professional], [cinematic 2.39:1], 
-[anamorphic lens 2x squeeze], [horizontal blue streak flares], 
-[oval bokeh], [Rembrandt lighting], [105mm f/2.8], 
-[visible skin pores, vellus hair], [subsurface scattering], 
-[ARRI Alexa 35], --style raw</pre>
-            </section>
-
-            <section id="quickref">
-                <h2>10 — Quick Reference</h2>
-                <div class="quick-ref">
-                    <div class="quick-ref-item">
-                        <div class="quick-ref-label">Lens</div>
-                        <div class="quick-ref-tech">85mm f/1.8</div>
-                        <div class="quick-ref-buzz">portrait mode</div>
+                <h3>Quick Patterns</h3>
+                <div class="card-grid">
+                    <div class="neo-card">
+                        <h4>Parallel Fetch</h4>
+                        <p><code>Promise.all([fetchA(), fetchB()])</code></p>
                     </div>
-                    <div class="quick-ref-item">
-                        <div class="quick-ref-label">Lighting</div>
-                        <div class="quick-ref-tech">Rembrandt</div>
-                        <div class="quick-ref-buzz">dramatic</div>
+                    <div class="neo-card">
+                        <h4>Dynamic Import</h4>
+                        <p><code>const Heavy = dynamic(() => import('./Heavy'))</code></p>
                     </div>
-                    <div class="quick-ref-item">
-                        <div class="quick-ref-label">Skin</div>
-                        <div class="quick-ref-tech">visible pores</div>
-                        <div class="quick-ref-buzz">perfect skin</div>
+                    <div class="neo-card">
+                        <h4>Memo</h4>
+                        <p><code>const Comp = memo(({data}) => ...)</code></p>
                     </div>
-                    <div class="quick-ref-item">
-                        <div class="quick-ref-label">Film</div>
-                        <div class="quick-ref-tech">Kodak Portra 400</div>
-                        <div class="quick-ref-buzz">vintage look</div>
+                    <div class="neo-card">
+                        <h4>Transition</h4>
+                        <p><code>startTransition(() => setState())</code></p>
                     </div>
-                    <div class="quick-ref-item">
-                        <div class="quick-ref-label">Quality</div>
-                        <div class="quick-ref-tech">Phase One IQ4</div>
-                        <div class="quick-ref-buzz">8K</div>
+                </div>
+            </section>
+
+            <section id="ui">
+                <div class="section-header">
+                    <span class="section-num">03</span>
+                    <h2>UI Components</h2>
+                </div>
+
+                <h3>Setup</h3>
+                <pre>npx shadcn@latest init
+npx shadcn@latest add button input card dialog form</pre>
+
+                <h3>Button Variants</h3>
+                <table class="neo-table">
+                    <tr><th>Variant</th><th>Usage</th></tr>
+                    <tr><td><code>default</code></td><td>Primary action</td></tr>
+                    <tr><td><code>destructive</code></td><td>Delete/danger</td></tr>
+                    <tr><td><code>outline</code></td><td>Secondary</td></tr>
+                    <tr><td><code>ghost</code></td><td>Minimal</td></tr>
+                    <tr><td><code>link</code></td><td>Anchor</td></tr>
+                </table>
+
+                <h3>Form with Validation</h3>
+                <pre>const formSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(8)
+})
+
+const form = useForm({
+  resolver: zodResolver(formSchema)
+})</pre>
+            </section>
+
+            <section id="animation">
+                <div class="section-header">
+                    <span class="section-num">04</span>
+                    <h2>Animations</h2>
+                </div>
+
+                <h3>Basic Animation</h3>
+                <pre>import { motion } from 'framer-motion';
+
+&lt;motion.div
+  initial={{ opacity: 0, y: 20 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.5 }}
+&gt;</pre>
+
+                <h3>Hover & Tap</h3>
+                <pre>whileHover={{ scale: 1.05 }}
+whileTap={{ scale: 0.95 }}
+transition={{ type: 'spring', stiffness: 400 }}</pre>
+
+                <h3>Stagger Children</h3>
+                <pre>const variants = {
+  visible: { transition: { staggerChildren: 0.1 } }
+};
+
+&lt;motion.ul variants={variants}&gt;</pre>
+
+                <h3>Scroll Animation</h3>
+                <pre>import { useInView } from 'framer-motion';
+
+const isInView = useInView(ref, { once: true });
+motion.div animate={isInView ? { opacity: 1 } : {}}</pre>
+            </section>
+
+            <section id="content">
+                <div class="section-header">
+                    <span class="section-num">05</span>
+                    <h2>Content Distribution</h2>
+                </div>
+
+                <h3>Post Anatomy</h3>
+                <table class="neo-table">
+                    <tr><th>Element</th><th>Limit</th></tr>
+                    <tr><td>Post text</td><td>3,000 chars</td></tr>
+                    <tr><td>Visible before "...see more"</td><td>~210 chars</td></tr>
+                    <tr><td>Hashtags</td><td>3-5</td></tr>
+                </table>
+
+                <h3>Hook Formulas</h3>
+                <div class="card-grid">
+                    <div class="neo-card">
+                        <h4>Contrarian</h4>
+                        <p>"Unpopular opinion: code reviews are a waste of time."</p>
                     </div>
-                    <div class="quick-ref-item">
-                        <div class="quick-ref-label">Camera</div>
-                        <div class="quick-ref-tech">ARRI Alexa 35</div>
-                        <div class="quick-ref-buzz">cinematic</div>
+                    <div class="neo-card">
+                        <h4>Personal Story</h4>
+                        <p>"I got fired on a Tuesday. Best thing that happened."</p>
+                    </div>
+                    <div class="neo-card">
+                        <h4>Bold Statement</h4>
+                        <p>"Your resume doesn't matter. Here's what does."</p>
+                    </div>
+                </div>
+
+                <h3>Content Pillars</h3>
+                <table class="neo-table">
+                    <tr><th>Pillar</th><th>Example</th></tr>
+                    <tr><td>Expertise</td><td>"5 database patterns every engineer should know"</td></tr>
+                    <tr><td>Stories</td><td>"The hardest feedback I ever received"</td></tr>
+                    <tr><td>Opinions</td><td>"AI won't replace engineers. Bad managers will."</td></tr>
+                </table>
+            </section>
+
+            <section id="patterns">
+                <div class="section-header">
+                    <span class="section-num">06</span>
+                    <h2>Integration Patterns</h2>
+                </div>
+
+                <h3>Pipeline</h3>
+                <pre>AI Image → shadcn Card → Framer Motion → LinkedIn/X Distribution</pre>
+
+                <h3>Example: Image Card Component</h3>
+                <pre>import { motion } from 'framer-motion';
+import { Card, CardContent } from "@/components/ui/card";
+
+export function AIImageCard({ imageUrl, title }) {
+  return (
+    &lt;motion.div whileHover={{ y: -5 }}&gt;
+      &lt;Card&gt;
+        &lt;img src={imageUrl} /&gt;
+        &lt;CardContent&gt;&lt;h3&gt;{title}&lt;/h3&gt;&lt;/CardContent&gt;
+      &lt;/Card&gt;
+    &lt;/motion.div&gt;
+  );
+}</pre>
+            </section>
+
+            <section id="matrix">
+                <div class="section-header">
+                    <span class="section-num">REF</span>
+                    <h2>Quick Reference</h2>
+                </div>
+
+                <div class="matrix">
+                    <div class="matrix-cell header">Skill</div>
+                    <div class="matrix-cell header">Key Commands</div>
+                    <div class="matrix-cell header">Best For</div>
+                    <div class="matrix-cell header">Install</div>
+                    
+                    <div class="matrix-cell">
+                        <div class="label">Photorealism</div>
+                        <div class="value">85mm f/1.8</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">Lens + Lighting specs</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">Image gen</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">-</div>
+                    </div>
+
+                    <div class="matrix-cell">
+                        <div class="label">React Perf</div>
+                        <div class="value">Promise.all</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">memo(), dynamic()</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">Performance</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">-</div>
+                    </div>
+
+                    <div class="matrix-cell">
+                        <div class="label">shadcn/ui</div>
+                        <div class="value">npx shadcn</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">add button</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">UI components</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">CLI</div>
+                    </div>
+
+                    <div class="matrix-cell">
+                        <div class="label">Framer</div>
+                        <div class="value">motion.div</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">whileHover</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">Animations</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">npm i</div>
+                    </div>
+
+                    <div class="matrix-cell">
+                        <div class="label">LinkedIn</div>
+                        <div class="value">Hook + Story</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">+ CTA</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">Distribution</div>
+                    </div>
+                    <div class="matrix-cell">
+                        <div class="value">infsh</div>
                     </div>
                 </div>
             </section>
 
             <footer>
-                <p>AI Photorealism Skills v4.0</p>
+                <p>AI Creator Suite v5.0 — February 2026</p>
                 <p><a href="https://github.com/marktantongco/aiskills-photog">GitHub</a></p>
             </footer>
         </main>
