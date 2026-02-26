@@ -3,276 +3,672 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AI Photorealism Skills Framework</title>
+    <title>AI Photorealism Skills</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
-            --bg: #0a0a0b;
-            --surface: #141416;
-            --border: #27272a;
-            --text: #e4e4e7;
-            --text-muted: #a1a1aa;
-            --accent: #22d3ee;
-            --accent-dim: #0891b2;
+            --bg: #050505;
+            --surface: #0a0a0a;
+            --surface-elevated: #111111;
+            --border: #1f1f1f;
+            --border-hover: #2a2a2a;
+            --text: #fafafa;
+            --text-secondary: #a1a1a1;
+            --text-tertiary: #525252;
+            --accent: #fafafa;
+            --accent-subtle: #262626;
+            --cyan: #22d3ee;
+            --cyan-dim: #0891b2;
+            --gradient: linear-gradient(135deg, #fafafa 0%, #a1a1aa 100%);
+            --font-mono: 'JetBrains Mono', monospace;
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
         }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: var(--font-sans);
             background: var(--bg);
             color: var(--text);
+            line-height: 1.6;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection { background: var(--cyan-dim); color: var(--text); }
+
+        .layout {
+            display: grid;
+            grid-template-columns: 260px 1fr;
+            min-height: 100vh;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 260px;
+            height: 100vh;
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .logo {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 8px;
+        }
+
+        .brand {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .brand::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 2px;
+        }
+
+        .version {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            color: var(--text-tertiary);
+            margin-bottom: 32px;
+            padding-left: 16px;
+        }
+
+        .nav-section {
+            margin-bottom: 24px;
+        }
+
+        .nav-label {
+            font-size: 11px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+            padding-left: 8px;
+        }
+
+        .nav-item {
+            display: block;
+            padding: 8px 12px;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            border-radius: 6px;
+            transition: all 0.15s ease;
+            margin-bottom: 2px;
+        }
+
+        .nav-item:hover {
+            color: var(--text);
+            background: var(--surface-elevated);
+        }
+
+        .nav-item.active {
+            color: var(--text);
+            background: var(--accent-subtle);
+        }
+
+        /* Main Content */
+        .main {
+            margin-left: 260px;
+            padding: 48px 64px;
+            max-width: 900px;
+        }
+
+        /* Hero */
+        .hero {
+            margin-bottom: 64px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-secondary);
+            max-width: 600px;
             line-height: 1.7;
         }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 40px 24px;
+
+        /* Sections */
+        section {
+            margin-bottom: 56px;
         }
-        header {
-            margin-bottom: 48px;
-            padding-bottom: 24px;
-            border-bottom: 1px solid var(--border);
-        }
-        h1 {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, var(--accent), #a78bfa);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .subtitle {
-            color: var(--text-muted);
-            font-size: 1.1rem;
-        }
+
         h2 {
-            font-size: 1.5rem;
-            margin: 40px 0 16px;
-            padding-bottom: 8px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
             border-bottom: 1px solid var(--border);
-            color: var(--accent);
         }
-        h3 { font-size: 1.2rem; margin: 24px 0 12px; }
-        p, li { color: var(--text-muted); }
-        ul { margin-left: 20px; margin-bottom: 16px; }
-        li { margin-bottom: 8px; }
-        code {
-            background: var(--surface);
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.9em;
-            color: var(--accent);
-        }
-        pre {
-            background: var(--surface);
-            padding: 16px;
-            border-radius: 8px;
-            overflow-x: auto;
-            margin: 16px 0;
-            border: 1px solid var(--border);
-        }
-        pre code {
-            background: none;
-            padding: 0;
+
+        h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
             color: var(--text);
         }
+
+        p { color: var(--text-secondary); margin-bottom: 16px; }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            transition: border-color 0.15s ease;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+        }
+
+        .card h4 {
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card h4::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--cyan);
+            border-radius: 1px;
+        }
+
+        .card p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        /* Tables */
         table {
             width: 100%;
             border-collapse: collapse;
-            margin: 16px 0;
+            margin: 16px 0 24px;
+            font-size: 13px;
         }
+
         th, td {
-            padding: 12px;
+            padding: 12px 16px;
             text-align: left;
             border-bottom: 1px solid var(--border);
         }
-        th { color: var(--accent); font-weight: 600; }
+
+        th {
+            font-weight: 500;
+            color: var(--text-tertiary);
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        td { color: var(--text-secondary); }
+
+        tr:hover td { background: var(--surface); }
+
+        code {
+            font-family: var(--font-mono);
+            font-size: 12px;
+            background: var(--surface-elevated);
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: var(--cyan);
+        }
+
+        pre {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            overflow-x: auto;
+            margin: 16px 0;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        /* Blockquote */
+        blockquote {
+            border-left: 2px solid var(--border);
+            padding-left: 20px;
+            margin: 24px 0;
+            color: var(--text-tertiary);
+            font-style: italic;
+        }
+
+        /* Lists */
+        ul, ol { margin: 16px 0; padding-left: 20px; }
+        li { color: var(--text-secondary); margin-bottom: 8px; font-size: 14px; }
+
+        /* Badges */
         .badge {
             display: inline-block;
-            background: var(--accent-dim);
-            color: var(--bg);
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-family: var(--font-mono);
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 4px 8px;
+            background: var(--accent-subtle);
+            border-radius: 4px;
+            color: var(--text);
         }
-        .grid {
+
+        /* Quick Ref */
+        .quick-ref {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 16px;
-            margin: 24px 0;
-        }
-        .card {
-            background: var(--surface);
-            padding: 20px;
-            border-radius: 8px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--border);
             border: 1px solid var(--border);
+            border-radius: 8px;
+            overflow: hidden;
         }
-        .card h4 { color: var(--accent); margin-bottom: 8px; }
+
+        .quick-ref-item {
+            background: var(--surface);
+            padding: 16px;
+        }
+
+        .quick-ref-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-tertiary);
+            margin-bottom: 8px;
+        }
+
+        .quick-ref-tech {
+            font-family: var(--font-mono);
+            font-size: 13px;
+            color: var(--text);
+        }
+
+        .quick-ref-buzz {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin-top: 4px;
+        }
+
+        /* Footer */
         footer {
-            margin-top: 60px;
-            padding-top: 24px;
+            margin-top: 80px;
+            padding-top: 32px;
             border-top: 1px solid var(--border);
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.9rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        a { color: var(--accent); text-decoration: none; }
-        a:hover { text-decoration: underline; }
+
+        footer p {
+            font-size: 12px;
+            color: var(--text-tertiary);
+            margin: 0;
+        }
+
+        footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        footer a:hover { color: var(--text); }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .layout { grid-template-columns: 1fr; }
+            .sidebar { display: none; }
+            .main { margin-left: 0; padding: 24px; }
+            .hero h1 { font-size: 28px; }
+            .quick-ref { grid-template-columns: 1fr; }
+            .card-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <span class="badge">v4.0</span>
-            <h1>AI Photorealism Skills</h1>
-            <p class="subtitle">Complete technical framework for achieving true photorealism in AI image generation</p>
-        </header>
+    <div class="layout">
+        <aside class="sidebar">
+            <div class="logo">AI Skills</div>
+            <div class="brand">Photorealism</div>
+            <div class="version">v4.0 · Feb 2026</div>
 
-        <h2>1. The Core Problem: Why AI Images Look "Waxy"</h2>
-        <p>The "AI look" — waxy skin, plastic textures, flattened lighting — is a <strong>user error</strong>, not a model limitation.</p>
-        
-        <h3>The Buzzword Trap</h3>
-        <table>
-            <tr><th>❌ Avoid</th><th>✅ Use Instead</th></tr>
-            <tr><td>"hyperrealistic"</td><td>Specific lens specs</td></tr>
-            <tr><td>"8K, ultra-detailed"</td><td>Sensor references</td></tr>
-            <tr><td>"professional lighting"</td><td>Named lighting patterns</td></tr>
-            <tr><td>"beautiful skin"</td><td>Anatomical micro-details</td></tr>
-        </table>
+            <nav class="nav-section">
+                <div class="nav-label">Foundation</div>
+                <a href="#problem" class="nav-item">The Problem</a>
+                <a href="#scaffold" class="nav-item">Prompt Scaffold</a>
+            </nav>
 
-        <h2>2. Technical Prompt Scaffold</h2>
-        <p>A professional prompt is an <strong>architectural blueprint</strong>, not a keyword list.</p>
-        
-        <h3>Universal Formula</h3>
-        <pre><code>[STYLE/MEDIUM] + [SUBJECT] + [ACTION/POSE] + [FRAMING] + [SETTING] + [LIGHTING] + [CAMERA SPECS] + [MATERIAL DETAILS] + [QUALITY/REFERENCE]</code></pre>
+            <nav class="nav-section">
+                <div class="nav-label">Technical</div>
+                <a href="#optics" class="nav-item">Optical Mechanics</a>
+                <a href="#lighting" class="nav-item">Lighting</a>
+                <a href="#skin" class="nav-item">Skin Realism</a>
+            </nav>
 
-        <h3>Token Weighting Syntax</h3>
-        <table>
-            <tr><th>Syntax</th><th>Effect</th></tr>
-            <tr><td><code>(keyword:1.1–1.2)</code></td><td>Subtle emphasis</td></tr>
-            <tr><td><code>(keyword:1.3–1.4)</code></td><td>Strong emphasis (recommended)</td></tr>
-            <tr><td><code>(keyword:1.5+)</code></td><td>Overrides default</td></tr>
-        </table>
+            <nav class="nav-section">
+                <div class="nav-label">Workflow</div>
+                <a href="#negation" class="nav-item">Strategic Negation</a>
+                <a href="#platform" class="nav-item">Platforms</a>
+                <a href="#post" class="nav-item">Post-Processing</a>
+            </nav>
 
-        <h2>3. Optical Mechanics: Lens Physics</h2>
-        
-        <h3>Focal Length & Psychological Impact</h3>
-        <table>
-            <tr><th>Focal Length</th><th>Perception</th><th>Best For</th></tr>
-            <tr><td>16–24mm</td><td>Depth expansion; rounder face</td><td>Environmental portraits</td></tr>
-            <tr><td>50mm</td><td>Natural perspective</td><td>Baseline realism</td></tr>
-            <tr><td>85mm</td><td>Flattering compression</td><td>Professional headshots</td></tr>
-            <tr><td>105mm+</td><td>"Elite" appearance</td><td>High-status portraits</td></tr>
-        </table>
+            <nav class="nav-section">
+                <div class="nav-label">Reference</div>
+                <a href="#templates" class="nav-item">Templates</a>
+                <a href="#quickref" class="nav-item">Quick Reference</a>
+            </nav>
+        </aside>
 
-        <h3>Aperture (f-stop) Control</h3>
-        <table>
-            <tr><th>Aperture</th><th>Effect</th></tr>
-            <tr><td>f/1.4–f/2.8</td><td>Shallow DOF; creamy bokeh</td></tr>
-            <tr><td>f/4–f/5.6</td><td>Moderate DOF</td></tr>
-            <tr><td>f/8–f/11</td><td>Deep focus (landscapes)</td></tr>
-        </table>
+        <main class="main">
+            <header class="hero">
+                <h1>AI Photorealism Skills</h1>
+                <p>A technical framework for achieving true photorealism in AI image generation through photographic physics, material science, and strategic prompt engineering.</p>
+            </header>
 
-        <h2>4. Lighting Architecture</h2>
-        
-        <h3>Core Lighting Patterns</h3>
-        <div class="grid">
-            <div class="card">
-                <h4>Rembrandt</h4>
-                <p>Key light 45° off-axis; triangle on shadow cheek. Dramatic, intellectual.</p>
-            </div>
-            <div class="card">
-                <h4>Butterfly</h4>
-                <p>Light centered above; butterfly shadow under nose. Beauty, glamour.</p>
-            </div>
-            <div class="card">
-                <h4>Loop</h4>
-                <p>Light 30–45° to side, slightly above. Flattering, approachable.</p>
-            </div>
-            <div class="card">
-                <h4>Rim/Edge</h4>
-                <p>Light behind subject. 3D separation, halo effect.</p>
-            </div>
-        </div>
+            <section id="problem">
+                <h2>01 — The Core Problem</h2>
+                <p>The "AI look" — waxy skin, plastic textures, flattened lighting — is a <strong style="color:var(--text)">user error</strong>, not a model limitation.</p>
+                
+                <h3>The Buzzword Trap</h3>
+                <table>
+                    <tr><th>Avoid</th><th>Use Instead</th></tr>
+                    <tr><td><code>hyperrealistic</code></td><td>Specific lens specs</td></tr>
+                    <tr><td><code>8K ultra-detailed</code></td><td>Sensor references</td></tr>
+                    <tr><td><code>professional lighting</code></td><td>Named lighting patterns</td></tr>
+                    <tr><td><code>beautiful skin</code></td><td>Anatomical micro-details</td></tr>
+                </table>
 
-        <h2>5. Skin Realism: Conquering Uncanny Valley</h2>
-        
-        <h3>The Subsurface Scattering Imperative</h3>
-        <p>In real skin: <strong>6%</strong> direct reflectance, <strong>94%</strong> subsurface scattering.</p>
-        
-        <h3>Micro-Texturing</h3>
-        <ul>
-            <li><code>visible skin pores, pore-level detail</code></li>
-            <li><code>vellus hair, fine peach fuzz</code></li>
-            <li><code>subtle blemishes, natural asymmetry</code></li>
-            <li><code>skin grain, natural skin variation</code></li>
-        </ul>
+                <blockquote>Why Buzzwords Fail: "8K" and "hyperrealistic" tell the AI to average millions of mediocre stock photos, resulting in over-processed skin.</blockquote>
+            </section>
 
-        <h3>Film Stock Emulation</h3>
-        <table>
-            <tr><th>Film</th><th>Character</th></tr>
-            <tr><td>Kodak Portra 160/400</td><td>Natural skin tones</td></tr>
-            <tr><td>Kodak Vision3 50D</td><td>Ultra-fine grain, cinematic</td></tr>
-            <tr><td>Fuji Pro 400H</td><td>Soft pastel highlights</td></tr>
-        </table>
+            <section id="scaffold">
+                <h2>02 — Prompt Scaffold</h2>
+                <p>A professional prompt is an <strong style="color:var(--text)">architectural blueprint</strong>, not a keyword list.</p>
 
-        <h2>6. Strategic Negation</h2>
-        
-        <h3>Troubleshooting Matrix</h3>
-        <table>
-            <tr><th>Problem</th><th>Solution</th></tr>
-            <tr><td>Waxy/Plastic Skin</td><td>Use lens specs + <code>(visible pores:1.4)</code></td></tr>
-            <tr><td>Distorted Faces</td><td>Use 85mm+ lens</td></tr>
-            <tr><td>Flat Lighting</td><td>Specify Rembrandt/Loop</td></tr>
-            <tr><td>Extra Fingers</td><td><code>(extra fingers:1.4)</code></td></tr>
-        </table>
+                <h3>Universal Formula</h3>
+                <pre>[STYLE/MEDIUM] + [SUBJECT] + [ACTION/POSE] + [FRAMING] + [SETTING] + [LIGHTING] + [CAMERA SPECS] + [MATERIAL DETAILS] + [QUALITY/REFERENCE]</pre>
 
-        <h3>Negative Prompt Block</h3>
-        <pre><code>(worst quality, low quality:1.4), (blurry:1.2), jpeg artifacts, 
-(cartoon, anime, illustration:1.3), 3d render, cgi, 
-(plastic skin, waxy skin, poreless, airbrushed:1.4), 
-(bad anatomy, deformed hands, extra fingers:1.4), 
-(dead eyes, lifeless eyes:1.3)</code></pre>
+                <h3>Token Weighting</h3>
+                <table>
+                    <tr><th>Syntax</th><th>Effect</th></tr>
+                    <tr><td><code>(keyword:1.1)</code></td><td>Subtle emphasis</td></tr>
+                    <tr><td><code>(keyword:1.3)</code></td><td>Strong emphasis</td></tr>
+                    <tr><td><code>(keyword:1.5)</code></td><td>Override default</td></tr>
+                </table>
+            </section>
 
-        <h2>7. Platform Optimization</h2>
-        
-        <h3>Midjourney v6/v7</h3>
-        <table>
-            <tr><th>Parameter</th><th>Setting</th></tr>
-            <tr><td><code>--style raw</code></td><td>Reduces painterly bias</td></tr>
-            <tr><td><code>--stylize</code></td><td>500–750 for photorealism</td></tr>
-            <tr><td><code>--cref</code></td><td>Character reference</td></tr>
-        </table>
+            <section id="optics">
+                <h2>03 — Optical Mechanics</h2>
+                
+                <h3>Focal Length</h3>
+                <table>
+                    <tr><th>Focal Length</th><th>Perception</th><th>Best For</th></tr>
+                    <tr><td>16–24mm</td><td>Depth expansion</td><td>Environmental portraits</td></tr>
+                    <tr><td>50mm</td><td>Natural perspective</td><td>Baseline realism</td></tr>
+                    <tr><td>85mm</td><td>Flattering compression</td><td>Professional headshots</td></tr>
+                    <tr><td>105mm+</td><td>Elite appearance</td><td>High-status portraits</td></tr>
+                </table>
 
-        <h2>8. Master Prompt Templates</h2>
-        
-        <h3>Corporate Executive Headshot</h3>
-        <pre><code>[Full shot] of a [middle-aged CEO] in a [bespoke charcoal wool suit], 
+                <blockquote><strong style="color:var(--text)">50mm Rule:</strong> Baseline for naturalism — approximates human vision.</blockquote>
+
+                <h3>Aperture</h3>
+                <table>
+                    <tr><th>Aperture</th><th>Effect</th></tr>
+                    <tr><td><code>f/1.4–f/2.8</code></td><td>Shallow DOF; creamy bokeh</td></tr>
+                    <tr><td><code>f/8–f/11</code></td><td>Deep focus</td></tr>
+                </table>
+
+                <h3>Anamorphic</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Oval Bokeh</h4>
+                        <p>Vertically elongated out-of-focus highlights</p>
+                    </div>
+                    <div class="card">
+                        <h4>Horizontal Flares</h4>
+                        <p>Blue-streak halation from cylindrical diffraction</p>
+                    </div>
+                    <div class="card">
+                        <h4>Edge Softness</h4>
+                        <p>Organic vignetting and focus fall-off</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="lighting">
+                <h2>04 — Lighting Architecture</h2>
+                
+                <h3>Core Patterns</h3>
+                <div class="card-grid">
+                    <div class="card">
+                        <h4>Rembrandt</h4>
+                        <p>Key light 45° off-axis; triangle on shadow cheek. Dramatic, intellectual depth.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Butterfly</h4>
+                        <p>Centered above; butterfly shadow under nose. Beauty, glamour.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Loop</h4>
+                        <p>30–45° to side, slightly above. Flattering, approachable.</p>
+                    </div>
+                    <div class="card">
+                        <h4>Rim/Edge</h4>
+                        <p>Behind subject. 3D separation, halo effect.</p>
+                    </div>
+                </div>
+
+                <h3>Natural Light</h3>
+                <table>
+                    <tr><th>Condition</th><th>Characteristics</th></tr>
+                    <tr><td>Golden Hour</td><td>Low-angle warm; long soft shadows</td></tr>
+                    <tr><td>Overcast</td><td>Soft, diffused, low-contrast</td></tr>
+                    <tr><td>Window Light</td><td>Directional; wrap-around</td></tr>
+                    <tr><td>Blue Hour</td><td>Cool, melancholic, cinematic</td></tr>
+                </table>
+
+                <h3>Advanced Terms</h3>
+                <ul>
+                    <li><code>subsurface scattering</code> — Light penetrates surface, scatters internally (critical for skin)</li>
+                    <li><code>global illumination</code> — Physically accurate light bounces</li>
+                    <li><code>ray tracing</code> — Accurate reflections, shadows</li>
+                </ul>
+            </section>
+
+            <section id="skin">
+                <h2>05 — Skin Realism</h2>
+                
+                <h3>The Subsurface Scattering Imperative</h3>
+                <p>In real skin: <strong style="color:var(--text)">6%</strong> direct reflectance, <strong style="color:var(--text)">94%</strong> subsurface scattering.</p>
+                <p>Prompt: <code>subsurface scattering, translucent skin</code></p>
+
+                <h3>Micro-Textures</h3>
+                <table>
+                    <tr><th>Element</th><th>Prompt</th></tr>
+                    <tr><td>Pores</td><td><code>visible skin pores, pore-level detail</code></td></tr>
+                    <tr><td>Hair</td><td><code>vellus hair, fine peach fuzz</code></td></tr>
+                    <tr><td>Imperfections</td><td><code>subtle blemishes, natural asymmetry</code></td></tr>
+                    <tr><td>Texture</td><td><code>skin grain, natural skin variation</code></td></tr>
+                </table>
+
+                <h3>Film Stock Emulation</h3>
+                <table>
+                    <tr><th>Film</th><th>Character</th></tr>
+                    <tr><td>Kodak Portra 160/400</td><td>Natural skin tones</td></tr>
+                    <tr><td>Kodak Vision3 50D</td><td>Ultra-fine grain, cinematic</td></tr>
+                    <tr><td>Fuji Pro 400H</td><td>Soft pastel highlights</td></tr>
+                </table>
+            </section>
+
+            <section id="negation">
+                <h2>06 — Strategic Negation</h2>
+                
+                <h3>Troubleshooting</h3>
+                <table>
+                    <tr><th>Problem</th><th>Solution</th></tr>
+                    <tr><td>Waxy/Plastic Skin</td><td>Lens specs + <code>(visible pores:1.4)</code></td></tr>
+                    <tr><td>Distorted Faces</td><td><code>85mm</code>+ lens</td></tr>
+                    <tr><td>Flat Lighting</td><td>Specify Rembrandt/Loop</td></tr>
+                    <tr><td>Extra Fingers</td><td><code>(extra fingers:1.4)</code></td></tr>
+                    <tr><td>Dead Eyes</td><td>Prompt <code>catchlights, iris detail</code></td></tr>
+                </table>
+
+                <h3>Negative Block</h3>
+                <pre>(worst quality:1.4), (blurry:1.2), jpeg artifacts, 
+(cartoon, anime:1.3), 3d render, cgi, 
+(plastic skin, waxy skin, poreless:1.4), 
+(bad anatomy, extra fingers:1.4), (dead eyes:1.3)</pre>
+            </section>
+
+            <section id="platform">
+                <h2>07 — Platform Optimization</h2>
+                
+                <h3>Midjourney v6/v7</h3>
+                <table>
+                    <tr><th>Parameter</th><th>Setting</th></tr>
+                    <tr><td><code>--style raw</code></td><td>Reduces painterly bias</td></tr>
+                    <tr><td><code>--stylize</code></td><td>500–750 for photorealism</td></tr>
+                    <tr><td><code>--cref</code></td><td>Character reference</td></tr>
+                    <tr><td><code>--cw</code></td><td>0=face only; 100=full</td></tr>
+                </table>
+
+                <h3>Stable Diffusion XL</h3>
+                <table>
+                    <tr><th>Technique</th><th>Purpose</th></tr>
+                    <tr><td>Base + Refiner</td><td>Two-stage 1024×1024 detail</td></tr>
+                    <tr><td>CFG Scale 7.0–8.5</td><td>Balance adherence + quality</td></tr>
+                    <tr><td>DPM++ 2M Karras</td><td>Best skin/hair</td></tr>
+                </table>
+            </section>
+
+            <section id="post">
+                <h2>08 — Post-Processing</h2>
+                
+                <h3>Consistency Workflow</h3>
+                <ol>
+                    <li><strong style="color:var(--text)">Seed Locking:</strong> <code>--seed 12345</code> holds initial noise</li>
+                    <li><strong style="color:var(--text)">Character Reference:</strong> <code>--cref face.jpg</code></li>
+                    <li><strong style="color:var(--text)">Style Reference:</strong> <code>--sref style.jpg</code></li>
+                    <li><strong style="color:var(--text)">Inpainting:</strong> Fix specific errors surgically</li>
+                </ol>
+
+                <h3>Resolution Strategy</h3>
+                <ul>
+                    <li>Generate at <strong style="color:var(--text)">4K+ native</strong> for detail</li>
+                    <li><strong style="color:var(--text)">HiRes Fix:</strong> Upscale + add high-frequency detail</li>
+                    <li><strong style="color:var(--text)">External AI:</strong> Topaz Photo AI, Lightroom</li>
+                </ul>
+            </section>
+
+            <section id="templates">
+                <h2>09 — Master Templates</h2>
+                
+                <h3>Corporate Executive</h3>
+                <pre>[Full shot] of a [middle-aged CEO] in a [bespoke charcoal wool suit], 
 standing by [floor-to-ceiling high-rise window], [blurred NYC cityscape 
-backdrop], [soft natural window light as key light], [85mm lens, f/2.8], 
-[unprecedented eye-focus], [natural skin pores, asymmetrical facial 
-features], [Kodak Portra 400 film emulation], --style raw --ar 4:5</code></pre>
+backdrop], [soft natural window light], [85mm lens, f/2.8], 
+[natural skin pores, asymmetrical features], [Kodak Portra 400], 
+--style raw --ar 4:5</pre>
 
-        <h3>Cinematic Portrait (Anamorphic)</h3>
-        <pre><code>[Eye-level] portrait of a [young professional], [cinematic 2.39:1], 
+                <h3>Cinematic Anamorphic</h3>
+                <pre>[Eye-level] portrait of a [young professional], [cinematic 2.39:1], 
 [anamorphic lens 2x squeeze], [horizontal blue streak flares], 
-[oval bokeh], [Rembrandt lighting], [105mm focal length], [f/2.8], 
+[oval bokeh], [Rembrandt lighting], [105mm f/2.8], 
 [visible skin pores, vellus hair], [subsurface scattering], 
-[ARRI Alexa 35 color], --style raw</code></pre>
+[ARRI Alexa 35], --style raw</pre>
+            </section>
 
-        <h2>9. Quick Reference Card</h2>
-        <table>
-            <tr><th>Category</th><th>Technical Term</th><th>Buzzword</th></tr>
-            <tr><td>Lens</td><td>85mm f/1.8</td><td>"portrait mode"</td></tr>
-            <tr><td>Lighting</td><td>Rembrandt</td><td>"dramatic"</td></tr>
-            <tr><td>Skin</td><td>visible pores</td><td>"perfect skin"</td></tr>
-            <tr><td>Film</td><td>Kodak Portra 400</td><td>"vintage look"</td></tr>
-            <tr><td>Quality</td><td>Phase One IQ4</td><td>"8K"</td></tr>
-        </table>
+            <section id="quickref">
+                <h2>10 — Quick Reference</h2>
+                <div class="quick-ref">
+                    <div class="quick-ref-item">
+                        <div class="quick-ref-label">Lens</div>
+                        <div class="quick-ref-tech">85mm f/1.8</div>
+                        <div class="quick-ref-buzz">portrait mode</div>
+                    </div>
+                    <div class="quick-ref-item">
+                        <div class="quick-ref-label">Lighting</div>
+                        <div class="quick-ref-tech">Rembrandt</div>
+                        <div class="quick-ref-buzz">dramatic</div>
+                    </div>
+                    <div class="quick-ref-item">
+                        <div class="quick-ref-label">Skin</div>
+                        <div class="quick-ref-tech">visible pores</div>
+                        <div class="quick-ref-buzz">perfect skin</div>
+                    </div>
+                    <div class="quick-ref-item">
+                        <div class="quick-ref-label">Film</div>
+                        <div class="quick-ref-tech">Kodak Portra 400</div>
+                        <div class="quick-ref-buzz">vintage look</div>
+                    </div>
+                    <div class="quick-ref-item">
+                        <div class="quick-ref-label">Quality</div>
+                        <div class="quick-ref-tech">Phase One IQ4</div>
+                        <div class="quick-ref-buzz">8K</div>
+                    </div>
+                    <div class="quick-ref-item">
+                        <div class="quick-ref-label">Camera</div>
+                        <div class="quick-ref-tech">ARRI Alexa 35</div>
+                        <div class="quick-ref-buzz">cinematic</div>
+                    </div>
+                </div>
+            </section>
 
-        <footer>
-            <p>AI Photorealism Skills Framework v4.0</p>
-            <p><a href="https://github.com/marktantongco/aiskills-photog">GitHub</a> • Built with Vercel</p>
-        </footer>
+            <footer>
+                <p>AI Photorealism Skills v4.0</p>
+                <p><a href="https://github.com/marktantongco/aiskills-photog">GitHub</a></p>
+            </footer>
+        </main>
     </div>
 </body>
 </html>
