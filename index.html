@@ -3,357 +3,462 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AI Creator Suite</title>
-    <meta name="description" content="Complete AI Creator Skills Framework - Photorealism, React, UI Components, Animations, Content Distribution">
+    <title>AI Creator Suite | Skills</title>
+    <meta name="description" content="AI Creator Suite - Comprehensive skills framework for building production-ready AI applications">
     <meta name="theme-color" content="#0c0c0c">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --bg: #0c0c0c;
-            --surface: #141414;
-            --surface-2: #1a1a1a;
-            --border: #2a2a2a;
-            --border-2: #3a3a3a;
-            --text: #f5f5f5;
-            --text-2: #a0a0a0;
-            --text-3: #666666;
-            --accent: #ff3d00;
-            --accent-2: #00e5ff;
-            --accent-3: #ffea00;
-            --nav-height: 64px;
-            --font-mono: 'JetBrains Mono', monospace;
-            --font-sans: 'Space Grotesk', sans-serif;
+            --bg: #09090b;
+            --surface: #18181b;
+            --surface-2: #27272a;
+            --border: #3f3f46;
+            --text: #fafafa;
+            --text-2: #a1a1aa;
+            --text-3: #71717a;
+            --accent: #22d3ee;
+            --accent-2: #f472b6;
+            --font-mono: 'Fira Code', monospace;
+            --font-sans: 'Inter', sans-serif;
+            --nav-height: 56px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        html, body { height: 100%; overflow: hidden; }
-        
+        html { scroll-behavior: smooth; }
+        html, body { height: 100%; }
+
         body {
             font-family: var(--font-sans);
             background: var(--bg);
             color: var(--text);
             font-size: 14px;
-            line-height: 1.4;
+            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
-            overscroll-behavior: none;
         }
 
         ::selection { background: var(--accent); color: var(--bg); }
 
-        /* App Container */
-        .app-container {
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            height: 100dvh;
-            overflow: hidden;
+        /* Header */
+        .header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background: var(--bg);
+            border-bottom: 1px solid var(--border);
         }
 
-        /* Header */
-        .app-header {
-            flex-shrink: 0;
-            height: 52px;
-            background: var(--surface);
-            border-bottom: 2px solid var(--border);
+        .header-inner {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            height: 52px;
             padding: 0 16px;
-            -webkit-user-select: none;
-            user-select: none;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
-        .header-brand {
+        .header-left {
             display: flex;
             align-items: center;
-            gap: 10px;
-        }
-
-        .brand-icon {
-            width: 28px;
-            height: 28px;
-            background: var(--accent);
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2px;
-            padding: 4px;
-        }
-
-        .brand-icon span { background: var(--bg); }
-
-        .brand-text {
-            font-size: 16px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-        }
-
-        .brand-text span { color: var(--accent); }
-
-        .header-actions {
-            display: flex;
             gap: 8px;
         }
 
-        .icon-btn {
-            width: 36px;
-            height: 36px;
-            background: var(--surface-2);
+        .header-logo {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .header-logo span { color: var(--accent); }
+
+        .header-link {
+            font-family: var(--font-mono);
+            font-size: 10px;
+            color: var(--text-3);
+            text-decoration: none;
+            padding: 4px 8px;
             border: 1px solid var(--border);
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text-2);
-            font-size: 16px;
-            cursor: pointer;
+            border-radius: 4px;
             transition: all 0.15s;
         }
 
-        .icon-btn:active { transform: scale(0.95); background: var(--border); }
+        .header-link:hover { border-color: var(--text-3); color: var(--text-2); }
 
-        /* Main Content */
-        .app-content {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
-            padding: 0;
+        .header-nav {
+            display: flex;
+            gap: 24px;
         }
 
-        .content-inner {
-            padding: 16px;
-            padding-bottom: 20px;
-            max-width: 100%;
+        .header-nav a {
+            font-size: 13px;
+            color: var(--text-3);
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+
+        .header-nav a:hover,
+        .header-nav a.active { color: var(--text); }
+
+        /* Main */
+        .main {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 24px 16px;
         }
 
         /* Hero */
         .hero {
-            margin-bottom: 20px;
-            padding-bottom: 16px;
-            border-bottom: 2px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 24px;
+            margin-bottom: 40px;
         }
 
-        .hero h1 {
-            font-size: 24px;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 8px;
+        @media (min-width: 1024px) {
+            .hero { grid-template-columns: auto 1fr; }
+        }
+
+        .hero-ascii {
+            display: none;
+            font-family: var(--font-mono);
+            font-size: 10px;
             line-height: 1.2;
+            color: var(--text-3);
+            white-space: pre;
+            letter-spacing: -1px;
+        }
+
+        @media (min-width: 768px) {
+            .hero-ascii { display: block; }
+        }
+
+        .hero-content { display: flex; flex-direction: column; justify-content: center; }
+
+        .hero h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            margin-bottom: 12px;
         }
 
         .hero h1 span { color: var(--accent); }
 
         .hero p {
-            font-size: 13px;
+            font-size: 15px;
             color: var(--text-2);
-            line-height: 1.5;
+            max-width: 600px;
+            margin-bottom: 16px;
         }
 
-        .badges {
+        .hero-stats {
             display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 12px;
+            gap: 24px;
         }
 
-        .badge {
+        .stat { display: flex; flex-direction: column; }
+        .stat-value {
             font-family: var(--font-mono);
-            font-size: 9px;
-            padding: 4px 8px;
-            border: 1px solid var(--border);
-            color: var(--text-2);
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent);
+        }
+        .stat-label {
+            font-size: 11px;
+            color: var(--text-3);
             text-transform: uppercase;
             letter-spacing: 0.05em;
         }
 
-        /* Section */
-        section { margin-bottom: 20px; }
-
-        .section-header {
+        /* Search */
+        .search-bar {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 24px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            background: none;
+            border: none;
+            color: var(--text);
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-bar input::placeholder { color: var(--text-3); }
+
+        .search-icon { color: var(--text-3); font-size: 16px; }
+
+        /* Filter Tabs */
+        .filter-tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            overflow-x: auto;
+            padding-bottom: 4px;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .filter-tab {
+            font-family: var(--font-mono);
+            font-size: 11px;
+            padding: 6px 12px;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            color: var(--text-3);
+            background: none;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.15s;
+        }
+
+        .filter-tab:hover { border-color: var(--text-3); color: var(--text-2); }
+        .filter-tab.active { border-color: var(--accent); color: var(--accent); background: rgba(34, 211, 238, 0.1); }
+
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+
+        @media (min-width: 640px) {
+            .skills-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 1024px) {
+            .skills-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        /* Skill Card */
+        .skill-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+            transition: all 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+        }
+
+        .skill-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .skill-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
             margin-bottom: 12px;
         }
 
-        .section-num {
+        .skill-icon {
+            width: 40px;
+            height: 40px;
+            background: var(--surface-2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+
+        .skill-install {
             font-family: var(--font-mono);
             font-size: 10px;
             color: var(--accent);
-            font-weight: 600;
+            opacity: 0;
+            transition: opacity 0.15s;
         }
 
-        h2 {
-            font-size: 15px;
-            font-weight: 600;
-        }
+        .skill-card:hover .skill-install { opacity: 1; }
 
-        h3 {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 8px;
-            color: var(--text);
-        }
-
-        p { color: var(--text-2); font-size: 12px; margin-bottom: 12px; }
-
-        /* Tables */
-        .neo-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 12px 0 16px;
-            font-size: 11px;
-            border: 2px solid var(--border);
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        .neo-table th {
-            background: var(--surface);
-            padding: 10px 8px;
-            text-align: left;
-            font-family: var(--font-mono);
-            font-size: 9px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-3);
-            border-bottom: 2px solid var(--border);
-            border-right: 1px solid var(--border);
-        }
-
-        .neo-table td {
-            padding: 8px;
-            color: var(--text-2);
-            border-bottom: 1px solid var(--border);
-            border-right: 1px solid var(--border);
-            font-size: 10px;
-        }
-
-        .neo-table tr:last-child td { border-bottom: none; }
-        
-        .neo-table code {
-            font-family: var(--font-mono);
-            font-size: 9px;
-            background: var(--surface-2);
-            padding: 2px 4px;
-            color: var(--accent-2);
-            border-radius: 3px;
-        }
-
-        /* Grid Cards */
-        .card-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin: 12px 0;
-        }
-
-        .neo-card {
-            background: var(--surface);
-            border: 2px solid var(--border);
-            padding: 12px;
-            transition: border-color 0.1s;
-        }
-
-        .neo-card:active { border-color: var(--accent); }
-
-        .neo-card h4 {
-            font-size: 12px;
+        .skill-name {
+            font-size: 16px;
             font-weight: 600;
             margin-bottom: 6px;
+        }
+
+        .skill-desc {
+            font-size: 13px;
+            color: var(--text-2);
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .skill-tags {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             gap: 6px;
         }
 
-        .neo-card h4::before {
-            content: '→';
-            color: var(--accent);
-            font-size: 10px;
-        }
-
-        .neo-card p {
-            font-size: 10px;
-            color: var(--text-2);
-            margin: 0;
-            line-height: 1.4;
-        }
-
-        /* Code */
-        pre {
-            background: var(--surface);
-            border: 2px solid var(--border);
-            padding: 12px;
-            overflow-x: auto;
-            margin: 12px 0;
+        .skill-tag {
             font-family: var(--font-mono);
             font-size: 9px;
-            line-height: 1.5;
+            padding: 3px 8px;
+            background: var(--surface-2);
+            border-radius: 4px;
+            color: var(--text-3);
+        }
+
+        .skill-meta {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border);
+        }
+
+        .skill-meta-item {
+            font-size: 11px;
+            color: var(--text-3);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* Skill Detail Modal */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            max-width: 800px;
+            margin: 40px auto;
+            transform: translateY(20px);
+            transition: transform 0.3s;
+        }
+
+        .modal-overlay.active .modal { transform: translateY(0); }
+
+        .modal-header {
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+        }
+
+        .modal-close {
+            width: 32px;
+            height: 32px;
+            background: var(--surface-2);
+            border: 1px solid var(--border);
+            border-radius: 8px;
             color: var(--text-2);
+            cursor: pointer;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover { background: var(--border); }
+
+        .modal-body {
+            padding: 24px;
+            max-height: 60vh;
+            overflow-y: auto;
+        }
+
+        .modal-section { margin-bottom: 24px; }
+        .modal-section:last-child { margin-bottom: 0; }
+
+        .modal-section h3 {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 12px;
+        }
+
+        .modal-code {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 16px;
+            font-family: var(--font-mono);
+            font-size: 12px;
+            color: var(--text-2);
+            overflow-x: auto;
             white-space: pre-wrap;
             word-break: break-all;
         }
 
-        code {
-            font-family: var(--font-mono);
-            font-size: 10px;
-            background: var(--surface-2);
-            padding: 2px 4px;
-            color: var(--accent-2);
-            border-radius: 3px;
+        .modal-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 12px;
         }
 
-        /* Quick Matrix */
-        .matrix {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2px;
-            background: var(--border);
-            border: 2px solid var(--border);
-            margin: 12px 0;
-        }
-
-        .matrix-cell {
-            background: var(--surface);
+        .modal-table th,
+        .modal-table td {
             padding: 10px 12px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
         }
 
-        .matrix-cell.header {
-            background: var(--surface-2);
-            font-family: var(--font-mono);
-            font-size: 8px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
+        .modal-table th {
             color: var(--text-3);
-        }
-
-        .matrix-cell .label {
-            font-size: 8px;
-            color: var(--text-3);
-            margin-bottom: 2px;
-        }
-
-        .matrix-cell .value {
-            font-family: var(--font-mono);
+            font-weight: 500;
             font-size: 10px;
-            color: var(--text);
+            text-transform: uppercase;
         }
 
-        /* Bottom Navigation */
+        .modal-table td { color: var(--text-2); }
+        .modal-table code { color: var(--accent); }
+
+        /* Bottom Nav for Mobile */
         .bottom-nav {
-            flex-shrink: 0;
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
             height: var(--nav-height);
             background: var(--surface);
-            border-top: 2px solid var(--border);
+            border-top: 1px solid var(--border);
+            z-index: 50;
+        }
+
+        @media (max-width: 768px) {
+            .bottom-nav { display: flex; }
+            .main { padding-bottom: 80px; }
+            .header-nav { display: none; }
+        }
+
+        .nav-items {
             display: flex;
-            align-items: center;
+            width: 100%;
             justify-content: space-around;
-            padding: 0 8px;
-            padding-bottom: env(safe-area-inset-bottom, 0);
         }
 
         .nav-item {
@@ -363,139 +468,23 @@
             align-items: center;
             justify-content: center;
             gap: 4px;
-            padding: 8px 4px;
             color: var(--text-3);
             text-decoration: none;
-            font-size: 9px;
-            font-weight: 500;
+            font-size: 10px;
+            cursor: pointer;
             transition: color 0.15s;
-            -webkit-user-select: none;
-            user-select: none;
-            max-width: 80px;
         }
 
         .nav-item:active { transform: scale(0.95); }
-
-        .nav-item.active {
-            color: var(--accent);
-        }
-
-        .nav-icon {
-            font-size: 20px;
-            line-height: 1;
-        }
-
-        .nav-item.active .nav-icon::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 4px;
-            background: var(--accent);
-            border-radius: 50%;
-        }
-
-        .nav-item .nav-icon { position: relative; }
-
-        /* More Menu */
-        .more-menu {
-            position: fixed;
-            bottom: calc(var(--nav-height) + 12px);
-            right: 16px;
-            background: var(--surface);
-            border: 2px solid var(--border);
-            border-radius: 12px;
-            padding: 8px 0;
-            min-width: 180px;
-            z-index: 100;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(10px);
-            transition: all 0.2s;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.5);
-        }
-
-        .more-menu.active {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-
-        .more-menu-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px 16px;
-            color: var(--text-2);
-            font-size: 13px;
-            cursor: pointer;
-            transition: background 0.15s;
-        }
-
-        .more-menu-item:active { background: var(--surface-2); }
-        .more-menu-item .icon { width: 20px; text-align: center; }
-        .more-menu-item .shortcut { margin-left: auto; font-size: 10px; color: var(--text-3); font-family: var(--font-mono); }
-
-        /* Scroll indicator */
-        .scroll-indicator {
-            text-align: center;
-            padding: 8px;
-            color: var(--text-3);
-            font-size: 10px;
-            font-family: var(--font-mono);
-        }
-
-        /* View Sections */
-        .view { display: none; }
-        .view.active { display: block; }
-
-        /* Skill Cards in Grid */
-        .skill-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            margin-top: 12px;
-        }
-
-        .skill-card {
-            background: var(--surface);
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            padding: 14px;
-            cursor: pointer;
-            transition: all 0.15s;
-        }
-
-        .skill-card:active {
-            border-color: var(--accent);
-            transform: scale(0.98);
-        }
-
-        .skill-card .skill-icon {
-            font-size: 24px;
-            margin-bottom: 8px;
-        }
-
-        .skill-card .skill-name {
-            font-size: 13px;
-            font-weight: 600;
-            margin-bottom: 4px;
-        }
-
-        .skill-card .skill-desc {
-            font-size: 10px;
-            color: var(--text-3);
-            line-height: 1.4;
-        }
+        .nav-item.active { color: var(--accent); }
+        .nav-icon { font-size: 18px; }
 
         /* Quick Actions */
         .quick-actions {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 8px;
-            margin: 12px 0;
+            margin-bottom: 24px;
         }
 
         .quick-action {
@@ -511,42 +500,9 @@
             transition: all 0.15s;
         }
 
-        .quick-action:active { background: var(--surface-2); border-color: var(--accent-2); }
+        .quick-action:active { background: var(--surface-2); border-color: var(--accent); }
         .quick-action .icon { font-size: 18px; }
-        .quick-action .label { font-size: 9px; color: var(--text-3); text-align: center; }
-
-        /* Search */
-        .search-bar {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--surface);
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            padding: 10px 14px;
-            margin-bottom: 16px;
-        }
-
-        .search-bar input {
-            flex: 1;
-            background: none;
-            border: none;
-            color: var(--text);
-            font-size: 14px;
-            outline: none;
-        }
-
-        .search-bar input::placeholder { color: var(--text-3); }
-
-        /* Empty state */
-        .empty-state {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-3);
-        }
-
-        .empty-state .icon { font-size: 48px; margin-bottom: 16px; }
-        .empty-state p { font-size: 13px; }
+        .quick-action .label { font-size: 9px; color: var(--text-3); }
 
         /* Animations */
         @keyframes fadeIn {
@@ -554,469 +510,454 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .view.active { animation: fadeIn 0.3s ease; }
-
-        /* Safe area for notched devices */
-        @supports (padding: max(0px)) {
-            .bottom-nav { padding-bottom: max(8px, env(safe-area-inset-bottom)); }
-        }
-
-        /* Reduced motion */
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
+        .skill-card { animation: fadeIn 0.3s ease backwards; }
+        .skills-grid .skill-card:nth-child(1) { animation-delay: 0.05s; }
+        .skills-grid .skill-card:nth-child(2) { animation-delay: 0.1s; }
+        .skills-grid .skill-card:nth-child(3) { animation-delay: 0.15s; }
+        .skills-grid .skill-card:nth-child(4) { animation-delay: 0.2s; }
+        .skills-grid .skill-card:nth-child(5) { animation-delay: 0.25s; }
+        .skills-grid .skill-card:nth-child(6) { animation-delay: 0.3s; }
     </style>
 </head>
 <body>
-    <div class="app-container">
-        <!-- Header -->
-        <header class="app-header">
-            <div class="header-brand">
-                <div class="brand-icon"><span></span><span></span><span></span><span></span></div>
-                <div class="brand-text">AI <span>CREATOR</span></div>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-inner">
+            <div class="header-left">
+                <div class="header-logo">AI <span>CREATOR</span> SUITE</div>
+                <a href="#" class="header-link">skills</a>
             </div>
-            <div class="header-actions">
-                <button class="icon-btn" onclick="searchFocus()">🔍</button>
-                <button class="icon-btn" onclick="toggleMore()">☰</button>
+            <nav class="header-nav">
+                <a href="#" class="active">Skills</a>
+                <a href="#">Docs</a>
+                <a href="#">Install</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main -->
+    <main class="main">
+        <div class="hero">
+            <pre class="hero-ascii">██████╗ ██╗   ██╗██╗   ██╗██╗  ██╗███████╗
+██╔══██╗██║   ██║╚██╗ ██╔╝██║ ██╔╝██╔════╝
+██████╔╝██║   ██║ ╚████╔╝ █████╔╝ █████╗  
+██╔══██╗██║   ██║  ╚██╔╝  ██╔═██╗ ██╔══╝  
+██║  ██║╚██████╔╝   ██║   ██║  ██╗███████╗
+╚═╝  ╚═╝ ╚═════╝    ╚═╝   ╚═╝  ╚═╝╚══════╝
+ ██████╗ ███████╗███████╗██╗     ██╗     ███████╗██╗  
+██╔════╝ ██╔════╝██╔════╝██║     ██║     ██╔════╝██║  
+██║  ███╗█████╗  ███████╗██║     ██║     █████╗  ██║  
+██║   ██║██╔══╝  ╚════██║██║     ██║     ██╔══╝  ██║  
+╚██████╔╝███████╗███████║███████╗███████╗███████╗███████╗
+ ╚═════╝ ╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝╚══════╝</pre>
+            <div class="hero-content">
+                <h1>AI <span>Creator</span> Suite</h1>
+                <p>Comprehensive skills framework for building production-ready AI applications. Photorealism, React, UI, Animations & Content Distribution.</p>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-value">6</span>
+                        <span class="stat-label">Skills</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">50+</span>
+                        <span class="stat-label">Commands</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-value">v5.0</span>
+                        <span class="stat-label">Version</span>
+                    </div>
+                </div>
             </div>
-        </header>
+        </div>
 
-        <!-- Main Content -->
-        <main class="app-content">
-            <div class="content-inner">
-                
-                <!-- Home View -->
-                <div id="view-home" class="view active">
-                    <div class="hero">
-                        <h1>AI <span>CREATOR</span> SUITE</h1>
-                        <p>Comprehensive skills framework for building production-ready AI applications</p>
-                        <div class="badges">
-                            <span class="badge">PHOTOREALISM</span>
-                            <span class="badge">REACT</span>
-                            <span class="badge">UI</span>
-                            <span class="badge">ANIMATION</span>
-                            <span class="badge">CONTENT</span>
-                        </div>
-                    </div>
-
-                    <div class="quick-actions">
-                        <div class="quick-action" onclick="showView('photorealism')">
-                            <span class="icon">📷</span>
-                            <span class="label">Photo</span>
-                        </div>
-                        <div class="quick-action" onclick="showView('react')">
-                            <span class="icon">⚡</span>
-                            <span class="label">React</span>
-                        </div>
-                        <div class="quick-action" onclick="showView('ui')">
-                            <span class="icon">🎨</span>
-                            <span class="label">UI</span>
-                        </div>
-                        <div class="quick-action" onclick="showView('content')">
-                            <span class="icon">📤</span>
-                            <span class="label">Content</span>
-                        </div>
-                    </div>
-
-                    <div class="search-bar">
-                        <span>🔍</span>
-                        <input type="text" placeholder="Search skills..." id="searchInput" oninput="filterSkills(this.value)">
-                    </div>
-
-                    <h2 style="margin-bottom: 12px;">Skills</h2>
-                    <div class="skill-grid" id="skillGrid">
-                        <div class="skill-card" onclick="showView('photorealism')">
-                            <div class="skill-icon">📷</div>
-                            <div class="skill-name">AI Photorealism</div>
-                            <div class="skill-desc">Prompt engineering, lighting, skin realism</div>
-                        </div>
-                        <div class="skill-card" onclick="showView('react')">
-                            <div class="skill-icon">⚡</div>
-                            <div class="skill-name">React Performance</div>
-                            <div class="skill-desc">Bundle optimization, re-renders, SSR</div>
-                        </div>
-                        <div class="skill-card" onclick="showView('ui')">
-                            <div class="skill-icon">🎨</div>
-                            <div class="skill-name">UI Components</div>
-                            <div class="skill-desc">shadcn/ui, forms, dialogs</div>
-                        </div>
-                        <div class="skill-card" onclick="showView('animation')">
-                            <div class="skill-icon">✨</div>
-                            <div class="skill-name">Animations</div>
-                            <div class="skill-desc">Framer Motion, transitions, gestures</div>
-                        </div>
-                        <div class="skill-card" onclick="showView('content')">
-                            <div class="skill-icon">📤</div>
-                            <div class="skill-name">Content</div>
-                            <div class="skill-desc">LinkedIn, X, distribution</div>
-                        </div>
-                        <div class="skill-card" onclick="showView('integration')">
-                            <div class="skill-icon">🔗</div>
-                            <div class="skill-name">Integration</div>
-                            <div class="skill-desc">Patterns, pipelines</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Photorealism View -->
-                <div id="view-photorealism" class="view">
-                    <div class="section-header">
-                        <span class="section-num">01</span>
-                        <h2>AI Photorealism</h2>
-                    </div>
-
-                    <h3>The Buzzword Trap</h3>
-                    <table class="neo-table">
-                        <tr><th>Avoid</th><th>Use</th></tr>
-                        <tr><td><code>hyperrealistic</code></td><td>Lens specs</td></tr>
-                        <tr><td><code>8K</code></td><td>Sensor refs</td></tr>
-                        <tr><td><code>professional light</code></td><td>Rembrandt</td></tr>
-                    </table>
-
-                    <h3>Focal Length</h3>
-                    <table class="neo-table">
-                        <tr><th>mm</th><th>Effect</th></tr>
-                        <tr><td>16-24</td><td>Depth expansion</td></tr>
-                        <tr><td>50</td><td>Natural</td></tr>
-                        <tr><td>85</td><td>Flattering</td></tr>
-                        <tr><td>105+</td><td>Elite</td></tr>
-                    </table>
-
-                    <h3>Lighting</h3>
-                    <div class="card-grid">
-                        <div class="neo-card"><h4>Rembrandt</h4><p>45° off-axis, triangle on cheek</p></div>
-                        <div class="neo-card"><h4>Butterfly</h4><p>Centered above, beauty</p></div>
-                        <div class="neo-card"><h4>Loop</h4><p>30-45° side, flattering</p></div>
-                        <div class="neo-card"><h4>Rim</h4><p>Behind, 3D separation</p></div>
-                    </div>
-
-                    <h3>Skin Realism</h3>
-                    <pre>subsurface scattering, visible pores, vellus hair, subtle blemishes</pre>
-
-                    <h3>Platform</h3>
-                    <table class="neo-table">
-                        <tr><th>Platform</th><th>Flags</th></tr>
-                        <tr><td>Midjourney</td><td><code>--style raw</code></td></tr>
-                        <tr><td>SDXL</td><td>Base+Refiner</td></tr>
-                    </table>
-                </div>
-
-                <!-- React View -->
-                <div id="view-react" class="view">
-                    <div class="section-header">
-                        <span class="section-num">02</span>
-                        <h2>React Performance</h2>
-                    </div>
-
-                    <h3>Priority Rules</h3>
-                    <table class="neo-table">
-                        <tr><th>#</th><th>Category</th><th>Prefix</th></tr>
-                        <tr><td>1</td><td>Waterfalls</td><td><code>async-</code></td></tr>
-                        <tr><td>2</td><td>Bundle</td><td><code>bundle-</code></td></tr>
-                        <tr><td>3</td><td>Server</td><td><code>server-</code></td></tr>
-                        <tr><td>4</td><td>Client</td><td><code>client-</code></td></tr>
-                    </table>
-
-                    <h3>Quick Patterns</h3>
-                    <div class="card-grid">
-                        <div class="neo-card"><h4>Parallel</h4><p><code>Promise.all([a(),b()])</code></p></div>
-                        <div class="neo-card"><h4>Dynamic</h4><p><code>dynamic(import)</code></p></div>
-                        <div class="neo-card"><h4>Memo</h4><p><code>memo(Component)</code></p></div>
-                        <div class="neo-card"><h4>Transition</h4><p><code>startTransition</code></p></div>
-                    </div>
-
-                    <h3>Key Rules</h3>
-                    <table class="neo-table">
-                        <tr><th>Rule</th><th>Description</th></tr>
-                        <tr><td><code>async-parallel</code></td><td>Promise.all for independent</td></tr>
-                        <tr><td><code>bundle-dynamic</code></td><td>Lazy load heavy</td></tr>
-                        <tr><td><code>rerender-memo</code></td><td>Memoize expensive</td></tr>
-                        <tr><td><code>server-cache</code></td><td>React.cache()</td></tr>
-                    </table>
-                </div>
-
-                <!-- UI View -->
-                <div id="view-ui" class="view">
-                    <div class="section-header">
-                        <span class="section-num">03</span>
-                        <h2>UI Components</h2>
-                    </div>
-
-                    <h3>Setup</h3>
-                    <pre>npx shadcn@latest init
-npx shadcn@latest add button input card dialog form</pre>
-
-                    <h3>Button Variants</h3>
-                    <table class="neo-table">
-                        <tr><th>Variant</th><th>Usage</th></tr>
-                        <tr><td><code>default</code></td><td>Primary</td></tr>
-                        <tr><td><code>destructive</code></td><td>Danger</td></tr>
-                        <tr><td><code>outline</code></td><td>Secondary</td></tr>
-                        <tr><td><code>ghost</code></td><td>Minimal</td></tr>
-                    </table>
-
-                    <h3>Form Schema</h3>
-                    <pre>const formSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8)
-})</pre>
-                </div>
-
-                <!-- Animation View -->
-                <div id="view-animation" class="view">
-                    <div class="section-header">
-                        <span class="section-num">04</span>
-                        <h2>Animations</h2>
-                    </div>
-
-                    <h3>Install</h3>
-                    <pre>npm install framer-motion</pre>
-
-                    <h3>Basic</h3>
-                    <pre>&lt;motion.div
-  initial={{opacity:0,y:20}}
-  animate={{opacity:1,y:0}}
-  transition={{duration:0.5}}
-&gt;</pre>
-
-                    <h3>Hover & Tap</h3>
-                    <pre>whileHover={{scale:1.05}}
-whileTap={{scale:0.95}}</pre>
-
-                    <h3>Stagger</h3>
-                    <pre>variants={{
-  visible:{transition:{staggerChildren:0.1}}
-}}</pre>
-
-                    <h3>Transitions</h3>
-                    <div class="card-grid">
-                        <div class="neo-card"><h4>Spring</h4><p>stiffness:300</p></div>
-                        <div class="neo-card"><h4>Smooth</h4><p>duration:0.3</p></div>
-                        <div class="neo-card"><h4>Snappy</h4><p>duration:0.15</p></div>
-                        <div class="neo-card"><h4>Reduced</h4><p>useReducedMotion</p></div>
-                    </div>
-                </div>
-
-                <!-- Content View -->
-                <div id="view-content" class="view">
-                    <div class="section-header">
-                        <span class="section-num">05</span>
-                        <h2>Content Distribution</h2>
-                    </div>
-
-                    <h3>Setup</h3>
-                    <pre>curl -fsSL https://cli.inference.sh | sh</pre>
-
-                    <h3>Post Anatomy</h3>
-                    <table class="neo-table">
-                        <tr><th>Element</th><th>Limit</th></tr>
-                        <tr><td>Post</td><td>3,000 chars</td></tr>
-                        <tr><td>Visible</td><td>~210 chars</td></tr>
-                        <tr><td>Hashtags</td><td>3-5</td></tr>
-                    </table>
-
-                    <h3>Hook Formulas</h3>
-                    <div class="card-grid">
-                        <div class="neo-card"><h4>Contrarian</h4><p>Unpopular opinion...</p></div>
-                        <div class="neo-card"><h4>Story</h4><p>I got fired...</p></div>
-                        <div class="neo-card"><h4>Bold</h4><p>Your resume doesn't...</p></div>
-                        <div class="neo-card"><h4>List</h4><p>5 things...</p></div>
-                    </div>
-
-                    <h3>CTA</h3>
-                    <pre>What's your take?
-Agree or disagree?
-Repost if this resonates</pre>
-                </div>
-
-                <!-- Integration View -->
-                <div id="view-integration" class="view">
-                    <div class="section-header">
-                        <span class="section-num">06</span>
-                        <h2>Integration</h2>
-                    </div>
-
-                    <h3>Pipeline</h3>
-                    <pre>AI Image → shadcn Card → Framer Motion → LinkedIn/X</pre>
-
-                    <h3>Example</h3>
-                    <pre>import { motion } from 'framer-motion';
-import { Card } from "@/components/ui/card";
-
-export function AIImageCard({img,title}){
-  return (
-    &lt;motion.div whileHover={{y:-5}}&gt;
-      &lt;Card&gt;
-        &lt;img src={img}/&gt;
-        &lt;CardContent&gt;{title}&lt;/&gt;
-      &lt;/Card&gt;
-    &lt;/motion.div&gt;
-  )
-}</pre>
-
-                    <h3>Quick Ref</h3>
-                    <div class="matrix">
-                        <div class="matrix-cell header">Skill</div>
-                        <div class="matrix-cell header">Key</div>
-                        <div class="matrix-cell header">For</div>
-                        <div class="matrix-cell header">Install</div>
-                        
-                        <div class="matrix-cell"><div class="label">Photo</div><div class="value">85mm</div></div>
-                        <div class="matrix-cell"><div class="value">Images</div></div>
-                        <div class="matrix-cell"><div class="value">-</div></div>
-                        
-                        <div class="matrix-cell"><div class="label">React</div><div class="value">memo()</div></div>
-                        <div class="matrix-cell"><div class="value">Perf</div></div>
-                        <div class="matrix-cell"><div class="value">-</div></div>
-                        
-                        <div class="matrix-cell"><div class="label">shadcn</div><div class="value">add</div></div>
-                        <div class="matrix-cell"><div class="value">UI</div></div>
-                        <div class="matrix-cell"><div class="value">CLI</div></div>
-                        
-                        <div class="matrix-cell"><div class="label">Framer</div><div class="value">motion</div></div>
-                        <div class="matrix-cell"><div class="value">Anim</div></div>
-                        <div class="matrix-cell"><div class="value">npm</div></div>
-                    </div>
-                </div>
-
-                <div class="scroll-indicator">↑ Scroll for more</div>
+        <div class="quick-actions">
+            <div class="quick-action" onclick="filterBy('all')">
+                <span class="icon">🎯</span>
+                <span class="label">All</span>
             </div>
-        </main>
+            <div class="quick-action" onclick="filterBy('image')">
+                <span class="icon">📷</span>
+                <span class="label">Image</span>
+            </div>
+            <div class="quick-action" onclick="filterBy('frontend')">
+                <span class="icon">⚡</span>
+                <span class="label">Frontend</span>
+            </div>
+            <div class="quick-action" onclick="filterBy('content')">
+                <span class="icon">📤</span>
+                <span class="label">Content</span>
+            </div>
+        </div>
 
-        <!-- Bottom Navigation -->
-        <nav class="bottom-nav">
-            <a class="nav-item active" onclick="showView('home')">
-                <span class="nav-icon">🏠</span>
-                <span>Home</span>
+        <div class="search-bar">
+            <span class="search-icon">⌘K</span>
+            <input type="text" placeholder="Search skills..." id="searchInput" oninput="searchSkills(this.value)">
+        </div>
+
+        <div class="filter-tabs">
+            <button class="filter-tab active" onclick="filterBy('all')">All Skills</button>
+            <button class="filter-tab" onclick="filterBy('image')">Image Generation</button>
+            <button class="filter-tab" onclick="filterBy('frontend')">Frontend</button>
+            <button class="filter-tab" onclick="filterBy('content')">Content</button>
+        </div>
+
+        <div class="skills-grid" id="skillsGrid">
+            <!-- Skill Cards -->
+            <div class="skill-card" data-category="image" onclick="openModal('photorealism')">
+                <div class="skill-header">
+                    <div class="skill-icon">📷</div>
+                    <span class="skill-install">npx skills add aiskills-photog</span>
+                </div>
+                <div class="skill-name">AI Photorealism</div>
+                <div class="skill-desc">Master photorealistic image generation through photographic physics, lens optics, and strategic prompt engineering.</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">prompt-engineering</span>
+                    <span class="skill-tag">photography</span>
+                    <span class="skill-tag">midjourney</span>
+                </div>
+                <div class="skill-meta">
+                    <span class="skill-meta-item">⭐ 2.4k</span>
+                    <span class="skill-meta-item">📦 v4.0</span>
+                </div>
+            </div>
+
+            <div class="skill-card" data-category="frontend" onclick="openModal('react')">
+                <div class="skill-header">
+                    <div class="skill-icon">⚡</div>
+                    <span class="skill-install">npx skills add vercel-react</span>
+                </div>
+                <div class="skill-name">React Performance</div>
+                <div class="skill-desc">57 performance rules across 8 categories. Eliminate waterfalls, optimize bundles, and master SSR.</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">react</span>
+                    <span class="skill-tag">nextjs</span>
+                    <span class="skill-tag">performance</span>
+                </div>
+                <div class="skill-meta">
+                    <span class="skill-meta-item">⭐ 8.2k</span>
+                    <span class="skill-meta-item">📦 v2.0</span>
+                </div>
+            </div>
+
+            <div class="skill-card" data-category="frontend" onclick="openModal('shadcn')">
+                <div class="skill-header">
+                    <div class="skill-icon">🎨</div>
+                    <span class="skill-install">npx skills add shadcn-ui</span>
+                </div>
+                <div class="skill-name">shadcn/ui Components</div>
+                <div class="skill-desc">Accessible, customizable UI components with Radix UI primitives and Tailwind CSS.</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">components</span>
+                    <span class="skill-tag">a11y</span>
+                    <span class="skill-tag">tailwind</span>
+                </div>
+                <div class="skill-meta">
+                    <span class="skill-meta-item">⭐ 12k</span>
+                    <span class="skill-meta-item">📦 v1.0</span>
+                </div>
+            </div>
+
+            <div class="skill-card" data-category="frontend" onclick="openModal('framer')">
+                <div class="skill-header">
+                    <div class="skill-icon">✨</div>
+                    <span class="skill-install">npx skills add framer-motion</span>
+                </div>
+                <div class="skill-name">Framer Motion</div>
+                <div class="skill-desc">Declarative animations, gestures, and transitions for React. Page transitions, layout animations.</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">animation</span>
+                    <span class="skill-tag">react</span>
+                    <span class="skill-tag">gestures</span>
+                </div>
+                <div class="skill-meta">
+                    <span class="skill-meta-item">⭐ 15k</span>
+                    <span class="skill-meta-item">📦 v3.0</span>
+                </div>
+            </div>
+
+            <div class="skill-card" data-category="content" onclick="openModal('linkedin')">
+                <div class="skill-header">
+                    <div class="skill-icon">📤</div>
+                    <span class="skill-install">npx skills add linkedin-content</span>
+                </div>
+                <div class="skill-name">LinkedIn Content</div>
+                <div class="skill-desc">Write high-engagement LinkedIn posts. Hook formulas, formatting rules, and engagement patterns.</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">social</span>
+                    <span class="skill-tag">marketing</span>
+                    <span class="skill-tag">writing</span>
+                </div>
+                <div class="skill-meta">
+                    <span class="skill-meta-item">⭐ 3.1k</span>
+                    <span class="skill-meta-item">📦 v1.0</span>
+                </div>
+            </div>
+
+            <div class="skill-card" data-category="integration" onclick="openModal('integration')">
+                <div class="skill-header">
+                    <div class="skill-icon">🔗</div>
+                    <span class="skill-install">npx skills add ai-creator-suite</span>
+                </div>
+                <div class="skill-name">Integration Patterns</div>
+                <div class="skill-desc">Combine AI image generation with React components, animations, and content distribution pipelines.</div>
+                <div class="skill-tags">
+                    <span class="skill-tag">patterns</span>
+                    <span class="skill-tag">pipelines</span>
+                    <span class="skill-tag">workflows</span>
+                </div>
+                <div class="skill-meta">
+                    <span class="skill-meta-item">⭐ 1.2k</span>
+                    <span class="skill-meta-item">📦 v5.0</span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+        <div class="nav-items">
+            <a class="nav-item active" onclick="filterBy('all')">
+                <span class="nav-icon">🎯</span>
+                <span>Skills</span>
             </a>
-            <a class="nav-item" onclick="showView('photorealism')">
+            <a class="nav-item" onclick="filterBy('image')">
                 <span class="nav-icon">📷</span>
-                <span>Photo</span>
+                <span>Image</span>
             </a>
-            <a class="nav-item" onclick="showView('react')">
+            <a class="nav-item" onclick="filterBy('frontend')">
                 <span class="nav-icon">⚡</span>
-                <span>React</span>
+                <span>Frontend</span>
             </a>
-            <a class="nav-item" onclick="showView('ui')">
-                <span class="nav-icon">🎨</span>
-                <span>UI</span>
-            </a>
-            <a class="nav-item" onclick="showView('content')">
+            <a class="nav-item" onclick="filterBy('content')">
                 <span class="nav-icon">📤</span>
-                <span>Post</span>
+                <span>Content</span>
             </a>
-            <a class="nav-item" onclick="toggleMore()">
-                <span class="nav-icon">☰</span>
-                <span>More</span>
-            </a>
-        </nav>
+        </div>
+    </nav>
 
-        <!-- More Menu -->
-        <div class="more-menu" id="moreMenu">
-            <div class="more-menu-item" onclick="showView('animation');toggleMore()">
-                <span class="icon">✨</span>
-                <span>Animations</span>
-                <span class="shortcut">FM</span>
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal" onclick="closeModal(event)">
+        <div class="modal" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalTitle" style="font-size: 20px; font-weight: 600; margin-bottom: 8px;">Skill Name</h2>
+                    <p id="modalDesc" style="color: var(--text-2); font-size: 14px;">Description</p>
+                </div>
+                <button class="modal-close" onclick="closeModal()">✕</button>
             </div>
-            <div class="more-menu-item" onclick="showView('integration');toggleMore()">
-                <span class="icon">🔗</span>
-                <span>Integration</span>
-                <span class="shortcut">INT</span>
-            </div>
-            <div class="more-menu-item" onclick="shareApp();toggleMore()">
-                <span class="icon">📲</span>
-                <span>Share</span>
-            </div>
-            <div class="more-menu-item" onclick="openGitHub();toggleMore()">
-                <span class="icon">🐙</span>
-                <span>GitHub</span>
+            <div class="modal-body" id="modalBody">
+                <!-- Dynamic content -->
             </div>
         </div>
     </div>
 
     <script>
-        let currentView = 'home';
+        const skillsData = {
+            photorealism: {
+                title: 'AI Photorealism',
+                desc: 'Master photorealistic image generation',
+                install: 'npx skills add aiskills-photog',
+                content: `
+                    <div class="modal-section">
+                        <h3>Install</h3>
+                        <div class="modal-code">npx skills add marktantongco/aiskills-photog@latest</div>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Core Commands</h3>
+                        <table class="modal-table">
+                            <tr><th>Command</th><th>Description</th></tr>
+                            <tr><td><code>85mm f/1.8</code></td><td>Portrait lens for flattering compression</td></tr>
+                            <tr><td><code>Rembrandt lighting</code></td><td>45° off-axis, triangle on cheek</td></tr>
+                            <tr><td><code>subsurface scattering</code></td><td>Skin translucency realism</td></tr>
+                            <tr><td><code>--style raw</code></td><td>Midjourney photorealism mode</td></tr>
+                        </table>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Quick Start</h3>
+                        <div class="modal-code">Use the skill to generate photorealistic images:
+- Specify lens specs instead of "hyperrealistic"
+- Add lighting patterns (Rembrandt, Loop, Rim)
+- Include skin details (pores, vellus hair)
+- Use film stock emulation (Kodak Portra)</div>
+                    </div>
+                `
+            },
+            react: {
+                title: 'React Performance',
+                desc: '57 performance rules for React/Next.js',
+                install: 'npx skills add vercel-react-best-practices',
+                content: `
+                    <div class="modal-section">
+                        <h3>Install</h3>
+                        <div class="modal-code">npx skills add vercel-labs/agent-skills@vercel-react-best-practices</div>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Priority Rules</h3>
+                        <table class="modal-table">
+                            <tr><th>Priority</th><th>Category</th><th>Prefix</th></tr>
+                            <tr><td>1</td><td>Eliminating Waterfalls</td><td><code>async-</code></td></tr>
+                            <tr><td>2</td><td>Bundle Size</td><td><code>bundle-</code></td></tr>
+                            <tr><td>3</td><td>Server Performance</td><td><code>server-</code></td></tr>
+                            <tr><td>4</td><td>Client Fetching</td><td><code>client-</code></td></tr>
+                        </table>
+                    </div>
+                `
+            },
+            shadcn: {
+                title: 'shadcn/ui Components',
+                desc: 'Accessible UI component library',
+                install: 'npx shadcn@latest init',
+                content: `
+                    <div class="modal-section">
+                        <h3>Install</h3>
+                        <div class="modal-code">npx shadcn@latest init
+npx shadcn@latest add button input card dialog</div>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Components</h3>
+                        <table class="modal-table">
+                            <tr><th>Component</th><th>Usage</th></tr>
+                            <tr><td><code>Button</code></td><td>variant="default|outline|ghost"</td></tr>
+                            <tr><td><code>Dialog</code></td><td>Modal overlays</td></tr>
+                            <tr><td><code>Form</code></td><td>React Hook Form + Zod</td></tr>
+                            <tr><td><code>Card</code></td><td>Content containers</td></tr>
+                        </table>
+                    </div>
+                `
+            },
+            framer: {
+                title: 'Framer Motion',
+                desc: 'Declarative animations for React',
+                install: 'npm install framer-motion',
+                content: `
+                    <div class="modal-section">
+                        <h3>Install</h3>
+                        <div class="modal-code">npm install framer-motion</div>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Basic Animation</h3>
+                        <div class="modal-code">&lt;motion.div
+  initial={{opacity: 0}}
+  animate={{opacity: 1}}
+  whileHover={{scale: 1.05}}
+/&gt;</div>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Transitions</h3>
+                        <table class="modal-table">
+                            <tr><th>Type</th><th>Usage</th></tr>
+                            <tr><td><code>spring</code></td><td>Natural bounce</td></tr>
+                            <tr><td><code>tween</code></td><td>Linear ease</td></tr>
+                            <tr><td><code>layout</code></td><td>Shared element</td></tr>
+                        </table>
+                    </div>
+                `
+            },
+            linkedin: {
+                title: 'LinkedIn Content',
+                desc: 'High-engagement post frameworks',
+                install: 'curl -fsSL https://cli.inference.sh | sh',
+                content: `
+                    <div class="modal-section">
+                        <h3>Install</h3>
+                        <div class="modal-code">curl -fsSL https://cli.inference.sh | sh && infsh login</div>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Hook Formulas</h3>
+                        <table class="modal-table">
+                            <tr><th>Formula</th><th>Example</th></tr>
+                            <tr><td>Contrarian</td><td>"Unpopular opinion..."</td></tr>
+                            <tr><td>Story</td><td>"I got fired..."</td></tr>
+                            <tr><td>Bold</td><td>"Your resume doesn't matter..."</td></tr>
+                        </table>
+                    </div>
+                `
+            },
+            integration: {
+                title: 'Integration Patterns',
+                desc: 'Full-stack AI application pipelines',
+                install: 'npx skills add ai-creator-suite',
+                content: `
+                    <div class="modal-section">
+                        <h3>Pipeline</h3>
+                        <div class="modal-code">AI Image → shadcn Card → Framer Motion → LinkedIn/X</div>
+                    </div>
+                    <div class="modal-section">
+                        <h3>Example</h3>
+                        <div class="modal-code">import { motion } from 'framer-motion';
+import { Card } from "@/components/ui/card";
 
-        function showView(viewId) {
-            // Hide all views
-            document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-            
-            // Show selected view
-            document.getElementById('view-' + viewId).classList.add('active');
-            
-            // Update nav
-            document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            event.target.closest('.nav-item')?.classList.add('active');
-            
-            // Scroll to top
-            document.querySelector('.app-content').scrollTop = 0;
-            
-            currentView = viewId;
-            closeMore();
+export function AIImageCard({ imageUrl, title }) {
+  return (
+    &lt;motion.div whileHover={{ y: -5 }}&gt;
+      &lt;Card&gt;
+        &lt;img src={imageUrl} /&gt;
+      &lt;/Card&gt;
+    &lt;/motion.div&gt;
+  );
+}</div>
+                    </div>
+                `
+            }
+        };
+
+        function openModal(skillId) {
+            const skill = skillsData[skillId];
+            if (!skill) return;
+
+            document.getElementById('modalTitle').textContent = skill.title;
+            document.getElementById('modalDesc').textContent = skill.desc;
+            document.getElementById('modalBody').innerHTML = skill.content;
+            document.getElementById('modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
         }
 
-        function toggleMore() {
-            document.getElementById('moreMenu').classList.toggle('active');
+        function closeModal(event) {
+            if (event && event.target !== event.currentTarget) return;
+            document.getElementById('modal').classList.remove('active');
+            document.body.style.overflow = '';
         }
 
-        function closeMore() {
-            document.getElementById('moreMenu').classList.remove('active');
+        function filterBy(category) {
+            const cards = document.querySelectorAll('.skill-card');
+            const tabs = document.querySelectorAll('.filter-tab');
+            
+            // Update tabs
+            tabs.forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+
+            // Filter cards
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = card.dataset.category === category ? 'block' : 'none';
+                }
+            });
         }
 
-        function searchFocus() {
-            document.getElementById('searchInput').focus();
-        }
-
-        function filterSkills(query) {
+        function searchSkills(query) {
             const cards = document.querySelectorAll('.skill-card');
             const q = query.toLowerCase();
-            
+
             cards.forEach(card => {
                 const name = card.querySelector('.skill-name').textContent.toLowerCase();
                 const desc = card.querySelector('.skill-desc').textContent.toLowerCase();
-                const match = name.includes(q) || desc.includes(q);
-                card.style.display = match ? '' : 'none';
+                const tags = Array.from(card.querySelectorAll('.skill-tag')).map(t => t.textContent).join(' ');
+                
+                const match = name.includes(q) || desc.includes(q) || tags.includes(q);
+                card.style.display = match ? 'block' : 'none';
             });
         }
 
-        function shareApp() {
-            if (navigator.share) {
-                navigator.share({
-                    title: 'AI Creator Suite',
-                    text: 'Comprehensive AI skills framework',
-                    url: window.location.href
-                });
-            }
-        }
-
-        function openGitHub() {
-            window.open('https://github.com/marktantongco/aiskills-photog', '_blank');
-        }
-
-        // Close more menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const moreMenu = document.getElementById('moreMenu');
-            const moreBtn = document.querySelectorAll('.nav-item, .icon-btn');
-            
-            if (!moreMenu.contains(e.target)) {
-                closeMore();
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
+            if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+                e.preventDefault();
+                document.getElementById('searchInput').focus();
             }
         });
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') closeMore();
-        });
-
-        // PWA support
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                // Service worker would be registered here
-            });
-        }
     </script>
 </body>
 </html>
